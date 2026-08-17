@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Polish Grammar System: Compilation Drills</title>
+    <style>
+        body { font-family: monospace; margin: 20px; background: #f9f9f9; color: #333; max-width: 800px; }
+        h1 { font-size: 1.5em; }
+        .nav { margin-bottom: 20px; }
+        .drill-box { background: #fff; padding: 20px; border: 1px solid #ccc; margin-bottom: 20px; }
+        .prompt { font-size: 1.1em; margin-bottom: 15px; background: #eef9ff; padding: 10px; border-left: 4px solid #0066cc; }
+        input[type="text"] { padding: 8px; font-family: monospace; width: 60%; margin-right: 10px; font-size: 1em; }
+        button { padding: 8px 15px; font-family: monospace; cursor: pointer; font-size: 1em; }
+        .feedback { margin-top: 15px; font-weight: bold; }
+        .correct { color: green; }
+        .incorrect { color: red; }
+        .stats { font-size: 0.85em; color: #666; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <h1>Polish Grammar System: Compilation Drills</h1>
+    <p>Engine for testing sentence synthesis using your stored registry database.</p>
+    
+    <div class="nav">
+        <strong>System Navigation:</strong> 
+        <a href="index.html">📂 Structural Templates</a> | 
+        <a href="cases.html">📊 Case Registry</a> |
+        <a href="drill.html">⚡ Compilation Drills</a>
+    </div>
+
+    <div class="drill-box" id="drillContainer">
+        <div id="setupState">
+            <p>Loading database from localStorage...</p>
+        </div>
+        <div id="activeState" style="display:none;">
+            <div class="prompt" id="drillPrompt"></div>
+            <input type="text" id="userInput" placeholder="Type full sentence or declined word..." onkeypress="checkEnter(event)">
+            <button onclick="verifyAnswer()">Compile & Check</button>
+            <div class="feedback" id="feedbackArea"></div>
+            <div class="stats" id="statsArea"></div>
+        </div>
+    </div>
+
+    <button onclick="nextDrill()">Next Challenge ➔</button>
+
+<script>
+        let registry = [];
+        let currentChallenge = {};
+
+        // Available templates mapped to case requirements
+        const templates = [
+            { id: 2, name: "Direct Possession (Mam + Accusative)", verb: "Mam", caseKey: "accS", prep: "" },
+            { id: 4, name: "Location Container (Mieszkam w + Locative)", verb: "Mieszkam w", caseKey: "locS", prep: "w" },
+            { id: 5, name: "Motion Toward (Idę do + Genitive)", verb: "Idę do", caseKey: "genS", prep: "do" },
+            { id: 7, name: "Negation (Nie mam + Genitive)", verb: "Nie mam", caseKey: "genS", prep: "" },
+            { id: 10, name: "Instrument (Piszę + Instrumental)", verb: "Piszę", caseKey: "instS", prep: "" }
+        ];
+
+        document.addEventListener("DOMContentLoaded", initDrill);
+
+        function initDrill() {
+            registry = JSON.parse(localStorage.getItem("polishRegistry") || "[]");
+            
+            if (registry.length === 0) {
+                document.getElementById("setupState").innerHTML = `
+                    <p class="incorrect">Registry is empty! Please add some nouns and fill in their cases in the <a href="nouns.html">Noun Registry</a> first.</p>
+                `;
+                return;
+            }
+
+            document.getElementById("setupState").style.display = "none";
+            document.getElementById("activeState").style.display = "block";
+            nextDrill();
+        }
+
+        function nextDrill() {
+            document.getElementById("feedbackArea").innerHTML = "";
+            document.getElementById("userInput").value = "";
+            document.getElementById("userInput").disabled = false;
+
+            // Safety Check: Flatten all possible valid word + template combinations
+            let validCombos = [];
+            registry.forEach((word, wIndex) => {
+                templates.forEach((tmpl, tIndex) => {
+                    if (word[tmpl.caseKey] && word[tmpl.caseKey].trim() !== "") {
+                        validCombos.push({ word, tmpl });
+                    }
+                });
+            });
+
+            // If no valid combinations exist across the whole registry
+            if (validCombos.length === 0) {
+                document.getElementById("drillPrompt").innerHTML = `
+                    <span class="incorrect">Registry Warning: None of your stored words have case fields filled out yet! Please update your data in the <a href="nouns.html">Noun Registry</a>.</span>
+                `;
+                document.getElementById("userInput").style.display = "none";
+                return;
+            }
+
+            // Pick a random valid combination safely without recursion risk
+            const selected = validCombos[Math.floor(Math.random() * validCombos.length)];
+            const randomWord = selected.word;
+            const randomTemplate = selected.tmpl;
+            const targetForm = randomWord[randomTemplate.caseKey];
+
+            currentChallenge = {
+                word: randomWord,
+                template: randomTemplate,
+                expectedWord: targetForm,
+                expectedFull: `${randomTemplate.verb} ${randomTemplate.prep ? randomTemplate.prep + ' ' : ''}${targetForm}`.trim()
+            };
+
+            document.getElementById("drillPrompt").innerHTML = `
+                <strong>Template:</strong> ${randomTemplate.name}<br>
+                <strong>Base Word:</strong> ${randomWord.base} ${randomWord.english ? '(' + randomWord.english + ')' : ''} <br>
+                <em>Compile the correct sentence form.</em>
+            `;
+        }
+
+        function verifyAnswer() {
+            const userVal = document.getElementById("userInput").value.trim().toLowerCase();
+            const expected = currentChallenge.expectedFull.toLowerCase();
+            const expectedWordOnly = currentChallenge.expectedWord.toLowerCase();
+
+            const feedback = document.getElementById("feedbackArea");
+
+            if (userVal === expected || userVal === expectedWordOnly) {
+                feedback.innerHTML = `<span class="correct">✔ Compilation Successful! Output matches registry data.</span>`;
+            } else {
+                feedback.innerHTML = `<span class="incorrect">✘ Compilation Error.<br>Expected: <strong>${currentChallenge.expectedFull}</strong></span>`;
+            }
+            document.getElementById("userInput").disabled = true;
+        }
+
+        function checkEnter(e) {
+            if (e.key === "Enter") {
+                verifyAnswer();
+            }
+        }
+    </script>
+</body>
+</html>

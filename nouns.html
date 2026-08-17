@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Polish Grammar System: Noun & Adjective Registry</title>
+    <style>
+        body { font-family: monospace; margin: 20px; background: #f9f9f9; color: #333; }
+        h1 { font-size: 1.5em; }
+        .nav { margin-bottom: 20px; }
+        .control-panel { background: #fff; padding: 15px; border: 1px solid #ccc; margin-bottom: 20px; }
+        input[type="text"], select { padding: 5px; font-family: monospace; margin-right: 10px; }
+        button { padding: 6px 12px; font-family: monospace; cursor: pointer; }
+        table { width: 100%; border-collapse: collapse; background: #fff; font-size: 0.85em; }
+        th, td { border: 1px solid #ccc; padding: 6px; text-align: center; }
+        th { background: #eee; }
+        td contenteditable { background: #fffdfd; }
+        td[contenteditable="true"]:focus { background: #eef9ff; outline: 1px solid #0066cc; }
+        .del-btn { background: #ffdddd; border: 1px solid #ff9999; cursor: pointer; padding: 2px 6px; }
+        .clear-btn { background: #ffeeee; border: 1px solid #ff6666; margin-top: 10px; }
+        .hidden-col { display: none; }
+    </style>
+</head>
+<body>
+
+    <h1>Polish Grammar System: Noun & Adjective Registry</h1>
+    <p>Interactive data compilation matrix for vocabulary, genders, and declension states.</p>
+    
+    <div class="nav">
+        <strong>System Navigation:</strong> 
+        <a href="index.html">📂 Structural Templates</a> | 
+        <a href="cases.html">📊 Case Registry</a> |
+        <a href="drill.html">⚡ Compilation Drills</a>
+    </div>
+
+    <div class="control-panel">
+        <h3>Add New Entry</h3>
+        <input type="text" id="wordInput" placeholder="Base Word (Nom.)...">
+        <input type="text" id="englishInput" placeholder="English Meaning...">
+        <select id="genderInput">
+            <option value="M-Inanimate">Masculine Inanimate</option>
+            <option value="M-Animate">Masculine Animate</option>
+            <option value="M-Personal">Masculine Personal</option>
+            <option value="Feminine">Feminine</option>
+            <option value="Neuter">Neuter</option>
+        </select>
+        <button onclick="addWord()">Compile / Add Entry</button>
+        <button onclick="toggleEnglish()" id="toggleBtn" style="float: right;">Hide English</button>
+    </div>
+
+    <h3>Compiled Registry Table</h3>
+    <table id="registryTable">
+        <thead>
+            <tr>
+                <th>Base (Nom.)</th>
+                <th class="eng-col">English</th>
+                <th>Gender</th>
+                <th>Gen. Sing.</th>
+                <th>Dat. Sing.</th>
+                <th>Acc. Sing.</th>
+                <th>Inst. Sing.</th>
+                <th>Loc. Sing.</th>
+                <th>Voc. Sing.</th>
+                <th>Nom. Plur.</th>
+                <th>Gen. Plur.</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            <!-- Dynamic rows injected here -->
+        </tbody>
+    </table>
+
+    <button class="clear-btn" onclick="clearRegistry()">Clear All Data</button>
+
+    <script>
+        let englishVisible = localStorage.getItem("englishVisible") !== "false";
+
+        document.addEventListener("DOMContentLoaded", () => {
+            updateToggleUI();
+            renderTable();
+        });
+
+        function addWord() {
+            const wordInput = document.getElementById("wordInput");
+            const englishInput = document.getElementById("englishInput");
+            const genderInput = document.getElementById("genderInput");
+            const word = wordInput.value.trim();
+            const english = englishInput.value.trim();
+            const gender = genderInput.value;
+
+            if (!word) {
+                alert("Please enter a valid base word.");
+                return;
+            }
+
+            const rowData = {
+                base: word,
+                english: english,
+                gender: gender,
+                genS: "", datS: "", accS: "", instS: "", locS: "", vocS: "", nomP: "", genP: ""
+            };
+
+            saveToLocalStorage(rowData);
+            wordInput.value = "";
+            englishInput.value = "";
+            renderTable();
+        }
+
+        function getRegistry() {
+            return JSON.parse(localStorage.getItem("polishRegistry") || "[]");
+        }
+
+        function saveToLocalStorage(data) {
+            const registry = getRegistry();
+            registry.push(data);
+            localStorage.setItem("polishRegistry", JSON.stringify(registry));
+        }
+
+        function updateField(index, field, value) {
+            const registry = getRegistry();
+            registry[index][field] = value;
+            localStorage.setItem("polishRegistry", JSON.stringify(registry));
+        }
+
+        function deleteRow(index) {
+            const registry = getRegistry();
+            registry.splice(index, 1);
+            localStorage.setItem("polishRegistry", JSON.stringify(registry));
+            renderTable();
+        }
+
+        function clearRegistry() {
+            if (confirm("Are you sure you want to clear the entire registry?")) {
+                localStorage.removeItem("polishRegistry");
+                renderTable();
+            }
+        }
+
+        function toggleEnglish() {
+            englishVisible = !englishVisible;
+            localStorage.setItem("englishVisible", englishVisible);
+            updateToggleUI();
+            renderTable();
+        }
+
+        function updateToggleUI() {
+            const btn = document.getElementById("toggleBtn");
+            btn.innerText = englishVisible ? "Hide English" : "Show English";
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById("tableBody");
+            tbody.innerHTML = "";
+            const registry = getRegistry();
+
+            registry.forEach((item, index) => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td><strong>${item.base}</strong></td>
+                    <td class="eng-col ${englishVisible ? '' : 'hidden-col'}" contenteditable="true" onblur="updateField(${index}, 'english', this.innerText)">${item.english || ''}</td>
+                    <td><small>${item.gender}</small></td>
+                    <td contenteditable="true" onblur="updateField(${index}, 'genS', this.innerText)">${item.genS}</td>
+                    <td contenteditable="true" onblur="updateField(${index}, 'datS', this.innerText)">${item.datS}</td>
+                    <td contenteditable="true" onblur="updateField(${index}, 'accS', this.innerText)">${item.accS}</td>
+                    <td contenteditable="true" onblur="updateField(${index}, 'instS', this.innerText)">${item.instS}</td>
+                    <td contenteditable="true" onblur="updateField(${index}, 'locS', this.innerText)">${item.locS}</td>
+                    <td contenteditable="true" onblur="updateField(${index}, 'vocS', this.innerText)">${item.vocS}</td>
+                    <td contenteditable="true" onblur="updateField(${index}, 'nomP', this.innerText)">${item.nomP}</td>
+                    <td contenteditable="true" onblur="updateField(${index}, 'genP', this.innerText)">${item.genP}</td>
+                    <td><button class="del-btn" onclick="deleteRow(${index})">X</button></td>
+                `;
+                tbody.appendChild(tr);
+            });
+            
+            // Also toggle header visibility
+            document.querySelectorAll('.eng-col').forEach(el => {
+                if(englishVisible) el.classList.remove('hidden-col');
+                else el.classList.add('hidden-col');
+            });
+        }
+    </script>
+</body>
+</html>

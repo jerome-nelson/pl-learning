@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Polish Grammar System: Master Case Registry</title>
+</head>
+<body>
+
+    <h1>Polish Grammar System: Master Case Registry (All 7 Cases)</h1>
+    <p>Algorithmic registry mapping all structural states, question triggers, syntactic roles, and complete declension matrices.</p>
+    
+    <p><strong>System Navigation:</strong> <a href="Syntax.html">📂 Return to Structural Templates</a></p>
+
+    <hr>
+
+    <h2>The 4 Core Cases (A1–A2 Foundation)</h2>
+
+    <section id="nominative">
+        <h3>1. Nominative (*Mianownik*) — The Subject / The Actor</h3>
+        <p><strong>System Role:</strong> The default dictionary form. The entity actively performing the verb or existing as the core topic.</p>
+        <p><strong>Question Trigger:</strong> <em>Kto? Co?</em> (Who? What?)</p>
+        <p><strong>Code Example:</strong> <strong>Kot</strong> spał. (The cat slept.)</p>
+        
+        <details>
+            <summary>📊 View Declension Matrix</summary>
+            <h4>Singular</h4>
+            <table border="1" cellpadding="5" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Noun Type</th>
+                        <th>Ending</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Masculine Inanimate</td><td>Consonant</td><td>dom</td></tr>
+                    <tr><td>Masculine Animate</td><td>Consonant</td><td>kot</td></tr>
+                    <tr><td>Masculine Personal</td><td>Consonant</td><td>student</td></tr>
+                    <tr><td>Feminine</td><td>-a / -i</td><td>książka / pani</td></tr>
+                    <tr><td>Neuter</td><td>-o / -e / -um</td><td>okno / serce</td></tr>
+                </tbody>
+            </table>
+
+            <h4>Plural (*Liczba Mnoga*)</h4>
+            <table border="1" cellpadding="5" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Noun Type</th>
+                        <th>Base</th>
+                        <th>Target</th>
+                        <th>Transformation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Masculine Personal</td><td>Consonant</td><td>-i / -y / -owie</td><td>student $\rightarrow$ studenci</td></tr>
+                    <tr><td>Masculine Inanimate</td><td>Consonant</td><td>-y / -i</td><td>dom $\rightarrow$ domy</td></tr>
+                    <tr><td>Masculine Animate</td><td>Consonant</td><td>-y / -i</td><td>kot $\rightarrow$ koty</td></tr>
+                    <tr><td>Feminine</td><td>-a</td><td>-y / -i</td><td>książka $\rightarrow$ książki</td></tr>
+                    <tr><td>Neuter</td><td>-o / -e</td><td>-a</td><td>okno $\rightarrow$ okna</td></tr>
+                </tbody>
+            </table>
+        </details>
+    </section>
+
+    <section id="accusative">
+        <h3>2. Accusative (*Biernik*) — The Direct Object / Target</h3>
+        <p><strong>System Role:</strong> The direct receiver of an action. Triggered by transitive verbs or movement into spaces (*w, na*).</p>
+        <p><strong>Question Trigger:</strong> <em>Kogo? Co?</em> (Whom? What?)</p>
+        <p><strong>Code Example:</strong> Mam <strong>kota</strong>. Widzę <strong>książkę</strong>. (I have a cat. I see a book.)</p>
+
+        <details>
+            <summary>📊 View Declension Matrix</summary>
+            <h4>Singular</h4>
+            <table border="1" cellpadding="5" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Noun Type</th>
+                        <th>Base</th>
+                        <th>Target</th>
+                        <th>Transformation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Masculine Inanimate</td><td>Consonant</td><td>Identical</td><td>dom $\rightarrow$ dom</td></tr>
+                    <tr><td>Masculine Animate</td><td>Consonant</td><td>+ -a</td><td>kot $\rightarrow$ kota</td></tr>
+                    <tr><td>Masculine Personal</td><td>Consonant</td><td>+ -a</td><td>student $\rightarrow$ studenta</td></tr>
+                    <tr><td>Feminine (-a)</td><td>-a</td><td>-ę</td><td>książka $\rightarrow$ książkę</td></tr>
+                    <tr><td>Feminine (Consonant)</td><td>Consonant</td><td>Identical</td><td>noc $\rightarrow$ noc</td></tr>
+                    <tr><td>Neuter</td><td>-o / -e</td><td>Identical</td><td>okno $\rightarrow$ okno</td></tr>
+                </tbody>
+            </table>
+
+            <h4>Plural (*Liczba Mnoga*)</h4>
+            <table border="1" cellpadding="5" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Noun Type</th>
+                        <th>Base</th>
+                        <th>Target</th>
+                        <th>Transformation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Masculine Personal</td><td>Consonant</td><td>-ów / -i / -y</td><td>studenci $\rightarrow$ studentów</td></tr>
+                    <tr><td>Masculine Inanimate</td><td>Identical to Nom Pl</td><td>Identical</td><td>domy $\rightarrow$ domy</td></tr>
+                    <tr><td>Masculine Animate</td><td>Identical to Nom Pl</td><td>Identical</td><td>koty $\rightarrow$ koty</td></tr>
+                    <tr><td>Feminine</td><td>Identical to Nom Pl</td><td>Identical</td><td>książki $\rightarrow$ książki</td></tr>
+                    <tr><td>Neuter</td><td>Identical to Nom Pl</td><td>Identical</td><td>okna $\rightarrow$ okna</td></tr>
+                </tbody>
+            </table>
+        </details>
+    </section>
+
+    <section id="genitive">
+        <h3>3. Genitive (*Dopełniacz*) — The Missing, The Owner, or The Boundary</h3>
+        <p><strong>System Role:</strong> Triggered during negation (*nie*), ownership (of X), quantities over 5, and boundary prepositions (*do, bez, od*).</p>
+        <p><strong>Question Trigger:</strong> <em>Kogo? Czego?</em> (Whom? Of what?)</p>
+        <p><strong>Code Example:</strong> Nie mam <strong>czasu</strong>. Idę do <strong>sklepu</strong>. (I don't have time. I'm going to the store.)</p>
+
+        <details>
+            <summary>📊 View Declension Matrix</summary>
+            <h4>Singular</h4>
+            <table border="1" cellpadding="5" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Noun Type</th>
+                        <th>Base</th>
+                        <th>Target</th>
+                        <th>Transformation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Masculine Animate / Personal</td><td>Consonant</td><td>+ -a</td><td>student $\rightarrow$ studenta</td></tr>
+                    <tr><td>Masculine Inanimate</td><td>Consonant</td><td>+ -a / + -u</td><td>sklep $\rightarrow$ sklepu</td></tr>
+                    <tr><td>Feminine</td><td>-a</td><td>-y / -i</td><td>kawa $\rightarrow$ kawy</td></tr>
+                    <tr><td>Neuter</td><td>-o / -e</td><td>-a</td><td>okno $\rightarrow$ okna</td></tr>
+                </tbody>
+            </table>
+
+            <h4>Plural (*Liczba Mnoga*)</h4>
+            <table border="1" cellpadding="5" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Noun Type</th>
+                        <th>Base</th>
+                        <th>Target</th>
+                        <th>Transformation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Masculine (All)</td><td>Consonant</td><td>-ów / -i / -y</td><td>sklep $\rightarrow$ sklepów</td></tr>
+                    <tr><td>Feminine</td><td>-a</td><td>Drop vowel (Ø)</td><td>książka $\rightarrow$ książek</td></tr>
+                    <tr><td>Neuter</td><td>-o / -e</td><td>Drop vowel (Ø)</td><td>okno $\rightarrow$ okien</td></tr>
+                </tbody>
+            </table>
+        </details>
+    </section>
+
+    <section id="locative">
+        <h3>4. Locative (*Miejscownik*) — The Container / Location</h3>
+        <p><strong>System Role:</strong> Always locked behind prepositions of static location, primarily <em>w</em> (in) and <em>na</em> (on/at).</p>
+        <p><strong>Question Trigger:</strong> <em>O kim? O czym?</em> / Gdzie? (About whom? About what? / Where?)</p>
+        <p><strong>Code Example:</strong> Kot jest w <strong>domu</strong>. (The cat is in the house.)</p>
+
+        <details>
+            <summary>📊 View Declension Matrix</summary>
+            <h4>Singular</h4>
+            <table border="1" cellpadding="5" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Noun Type</th>
+                        <th>Base</th>
+                        <th>Target</th>
+                        <th>Transformation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Masculine Hard Consonant</td><td>Consonant</td><td>-ie / -e</td><td>dom $\rightarrow$ domu / świat $\rightarrow$ świecie</td></tr>
+                    <tr><td>Masculine Soft / k, g, ch</td><td>Consonant</td><td>-u</td><td>park $\rightarrow$ parku</td></tr>
+                    <tr><td>Feminine</td><td>-a</td><td>-e / -ie / -y / -i</td><td>Polska $\rightarrow$ Polsce</td></tr>
+                    <tr><td>Neuter</td><td>-o / -e</td><td>-e / -u</td><td>okno $\rightarrow$ oknie</td></tr>
+                </tbody>
+            </table>
+
+            <h4>Plural (*Liczba Mnoga*)</h4>
+            <table border="1" cellpadding="5" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Noun Type</th>
+                        <th>Base</th>
+                        <th>Target</th>
+                        <th>Transformation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>All Genders</td><td>Any</td><td>-ach</td><td>dom $\rightarrow$ domach / szkoła $\rightarrow$ szkołach</td></tr>
+                </tbody>
+            </table>
+        </details>
+    </section>
+
+    <hr>
+
+    <h2>The 3 Advanced Cases (B1–B2 System Completion)</h2>
+
+    <section id="instrumental">
+        <h3>5. Instrumental (*Narzędnik*) — The Tool / Companion</h3>
+        <p><strong>System Role:</strong> Denotes the tool used to accomplish an action (<em>narzędzie</em> = tool), accompaniment using <em>z</em> (with), or professional identity after <em>być</em>.</p>
+        <p><strong>Question Trigger:</strong> <em>Kim? Czym?</em> (With whom? With what?)</p>
+        <p><strong>Code Example:</strong> Piszę <strong>długopisem</strong>. Idę z <strong>przyjaciółmi</strong>. Jestem <strong>inżynierem</strong>. (I write with a pen. I go with friends. I am an engineer.)</p>
+
+        <details>
+            <summary>📊 View Declension Matrix</summary>
+            <h4>Singular</h4>
+            <table border="1" cellpadding="5" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Noun Type</th>
+                        <th>Base</th>
+                        <th>Target</th>
+                        <th>Transformation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Masculine (All)</td><td>Consonant</td><td>-em / -iem</td><td>długopis $\rightarrow$ długopisem</td></tr>
+                    <tr><td>Feminine</td><td>-a</td><td>-ą</td><td>kobieta $\rightarrow$ kobietą</td></tr>
+                    <tr><td>Neuter</td><td>-o / -e</td><td>-em / -iem</td><td>okno $\rightarrow$ oknem</td></tr>
+                </tbody>
+            </table>
+
+            <h4>Plural (*Liczba Mnoga*)</h4>
+            <table border="1" cellpadding="5" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Noun Type</th>
+                        <th>Base</th>
+                        <th>Target</th>
+                        <th>Transformation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>All Genders</td><td>Any</td><td>-ami</td><td>długopis $\rightarrow$ długopisami / kobieta $\rightarrow$ kobietami</td></tr>
+                </tbody>
+            </table>
+        </details>
+    </section>
+
+    <section id="dative">
+        <h3>6. Dative (*Celownik*) — The Recipient / Target of Benefit</h3>
+        <p><strong>System Role:</strong> Used for the indirect object—the person or thing receiving something (giving, helping, telling).</p>
+        <p><strong>Question Trigger:</strong> <em>Komu? Cemu?</em> (To whom? To what?)</p>
+        <p><strong>Code Example:</strong> Daję książkę <strong>bratu</strong>. Pomagam <strong>siostrze</strong>. (I give a book to the brother. I help the sister.)</p>
+
+        <details>
+            <summary>📊 View Declension Matrix</summary>
+            <h4>Singular</h4>
+            <table border="1" cellpadding="5" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Noun Type</th>
+                        <th>Base</th>
+                        <th>Target</th>
+                        <th>Transformation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Masculine (Most)</td><td>Consonant</td><td>-owi</td><td>student $\rightarrow$ studentowi</td></tr>
+                    <tr><td>Masculine Short/Special</td><td>Consonant</td><td>-u</td><td>brat $\rightarrow$ bratu</td></tr>
+                    <tr><td>Feminine</td><td>-a</td><td>-e / -i / -y</td><td>siostra $\rightarrow$ siostrze</td></tr>
+                    <tr><td>Neuter</td><td>-o / -e</td><td>-u</td><td>dziecko $\rightarrow$ dziecku</td></tr>
+                </tbody>
+            </table>
+
+            <h4>Plural (*Liczba Mnoga*)</h4>
+            <table border="1" cellpadding="5" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Noun Type</th>
+                        <th>Base</th>
+                        <th>Target</th>
+                        <th>Transformation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>All Genders</td><td>Any</td><td>-om</td><td>brat $\rightarrow$ braciom / siostra $\rightarrow$ siostrom</td></tr>
+                </tbody>
+            </table>
+        </details>
+    </section>
+
+    <section id="vocative">
+        <h3>7. Vocative (*Wołacz*) — The Direct Address</h3>
+        <p><strong>System Role:</strong> Strictly used when directly calling out to or addressing a person, title, or pet. Holds no grammatical sentence dependency.</p>
+        <p><strong>Question Trigger:</strong> None (Pure direct call)</p>
+        <p><strong>Code Example:</strong> Cześć, <strong>Anno</strong>! Panie <strong>doktorze</strong>! (Hi, Anna! Doctor!)</p>
+
+        <details>
+            <summary>📊 View Declension Matrix</summary>
+            <h4>Singular</h4>
+            <table border="1" cellpadding="5" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Noun Type</th>
+                        <th>Base</th>
+                        <th>Target</th>
+                        <th>Transformation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Masculine Hard Consonant</td><td>Consonant</td><td>-ie / -e</td><td>doktor $\rightarrow$ doktorze</td></tr>
+                    <tr><td>Masculine Soft / k, g, ch</td><td>Consonant</td><td>-u</td><td>kot $\rightarrow$ kocie</td></tr>
+                    <tr><td>Feminine (-a)</td><td>-a</td><td>-o</td><td>Anna $\rightarrow$ Anno</td></tr>
+                    <tr><td>Feminine Diminutive (-ia)</td><td>-ia</td><td>-iu</td><td>Basia $\rightarrow$ Basiu</td></tr>
+                    <tr><td>Neuter</td><td>-o / -e</td><td>Identical</td><td>dziecko $\rightarrow$ dziecko</td></tr>
+                </tbody>
+            </table>
+
+            <h4>Plural (*Liczba Mnoga*)</h4>
+            <table border="1" cellpadding="5" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Noun Type</th>
+                        <th>Base</th>
+                        <th>Target</th>
+                        <th>Transformation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>All Genders</td><td>Identical to Nom Pl</td><td>Identical</td><td>doktorzy $\rightarrow$ doktorzy / kobiety $\rightarrow$ kobiety</td></tr>
+                </tbody>
+            </table>
+        </details>
+    </section>
+
+</body>
+</html>

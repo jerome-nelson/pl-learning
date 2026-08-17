@@ -4,52 +4,115 @@
     <meta charset="UTF-8">
     <title>Polish Grammar System: Compilation Drills</title>
     <style>
-        body { font-family: monospace; margin: 20px; background: #f9f9f9; color: #333; max-width: 800px; }
-        h1 { font-size: 1.5em; }
-        .nav { margin-bottom: 20px; }
-        .drill-box { background: #fff; padding: 20px; border: 1px solid #ccc; margin-bottom: 20px; }
-        .prompt { font-size: 1.1em; margin-bottom: 15px; background: #eef9ff; padding: 10px; border-left: 4px solid #0066cc; }
-        input[type="text"] { padding: 8px; font-family: monospace; width: 60%; margin-right: 10px; font-size: 1em; }
-        button { padding: 8px 15px; font-family: monospace; cursor: pointer; font-size: 1em; }
+        body { font-family: monospace; margin: 20px; background: #f4f6f9; color: #2c3e50; line-height: 1.6; }
+        h1 { font-size: 1.6em; border-bottom: 2px solid #bdc3c7; padding-bottom: 10px; }
+        .nav { background: #fff; padding: 12px 15px; border: 1px solid #dcdde1; border-radius: 6px; margin-bottom: 25px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .nav a { text-decoration: none; color: #2980b9; font-weight: bold; margin: 0 5px; }
+        .nav a:hover { text-decoration: underline; }
+        .drill-box { background: #fff; border: 1px solid #dcdde1; border-radius: 6px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
+        .prompt { font-size: 1.1em; margin-bottom: 15px; background: #eef2f5; padding: 12px; border-left: 4px solid #2980b9; border-radius: 0 4px 4px 0; }
+        input[type="text"], select { padding: 10px; font-family: monospace; width: 60%; margin-right: 10px; margin-bottom: 10px; font-size: 1em; border: 1px solid #dcdde1; border-radius: 4px; display: block; }
+        button { padding: 10px 15px; font-family: monospace; cursor: pointer; font-size: 1em; background: #ecf0f1; border: 1px solid #bdc3c7; border-radius: 4px; font-weight: bold; color: #2c3e50; }
+        button:hover { background: #bdc3c7; }
         .feedback { margin-top: 15px; font-weight: bold; }
-        .correct { color: green; }
-        .incorrect { color: red; }
-        .stats { font-size: 0.85em; color: #666; margin-top: 10px; }
+        .correct { color: #27ae60; }
+        .incorrect { color: #c0392b; }
+        .mode-selector { margin-bottom: 20px; }
+        .input-group { margin-bottom: 15px; }
+        label { font-weight: bold; display: block; margin-bottom: 5px; }
+        .link-box { background: #fff; border: 1px solid #dcdde1; border-radius: 6px; padding: 15px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+    </style>
     </style>
 </head>
 <body>
 
     <h1>Polish Grammar System: Compilation Drills</h1>
-    <p>Engine for testing sentence synthesis using your stored registry database.</p>
+    <p>Engine for testing sentence synthesis and vocabulary metadata using your stored registry database.</p>
     
     <div class="nav">
         <strong>System Navigation:</strong> 
         <a href="index.html">📂 Structural Templates</a> | 
         <a href="cases.html">📊 Case Registry</a> |
-        <a href="nouns.html"> Noun Registry</a> |
+        <a href="nouns.html">📝 Noun Registry</a> |
         <a href="drill.html">⚡ Compilation Drills</a>
     </div>
 
-    <div class="drill-box" id="drillContainer">
+    <div class="link-box">
+        <div>
+            <strong>📖 Need help identifying noun types?</strong> 
+            <span style="color: #7f8c8d; font-size: 0.9em; margin-left: 10px;">Check out the simple guide on genders and sub-types.</span>
+        </div>
+        <a href="noun-types.html" style="background: #ecf0f1; border: 1px solid #bdc3c7; padding: 8px 14px; text-decoration: none; color: #2c3e50; font-weight: bold; border-radius: 4px;">View Noun Types Guide &rarr;</a>
+    </div>
+
+    <div class="mode-selector">
+        <button onclick="switchMode('sentence')" id="btnSentenceMode" style="background: #2980b9; color: #fff;">⚡ Sentence Compilation Drills</button>
+        <button onclick="switchMode('nounType')" id="btnNounTypeMode">🏷️ Noun Type Entry & Guessing Game</button>
+    </div>
+
+    <!-- Sentence Drill Container -->
+    <div class="drill-box" id="sentenceDrillContainer">
         <div id="setupState">
             <p>Loading database from localStorage...</p>
         </div>
         <div id="activeState" style="display:none;">
             <div class="prompt" id="drillPrompt"></div>
-            <input type="text" id="userInput" placeholder="Type full sentence or declined word..." onkeypress="checkEnter(event)">
+            <input type="text" id="userInput" placeholder="Type full sentence or declined word..." onkeypress="checkEnterSentence(event)">
             <button onclick="verifyAnswer()">Compile & Check</button>
             <div class="feedback" id="feedbackArea"></div>
-            <div class="stats" id="statsArea"></div>
+        </div>
+        <div style="margin-top: 15px;">
+            <button onclick="nextDrill()" id="nextSentenceBtn" style="display:none;">Next Challenge ➔</button>
         </div>
     </div>
 
-    <button onclick="nextDrill()">Next Challenge ➔</button>
+    <!-- Noun Type Game Container -->
+    <div class="drill-box" id="nounTypeContainer" style="display:none;">
+        <div class="input-group">
+            <label for="targetCaseSelect">Select Noun Type / Case Field to Practice:</label>
+            <select id="targetCaseSelect" onchange="startNounGameRound()" style="width: 100%;">
+                <option value="genS">Genitive Singular (genS)</option>
+                <option value="datS">Dative Singular (datS)</option>
+                <option value="accS">Accusative Singular (accS)</option>
+                <option value="instS">Instrumental Singular (instS)</option>
+                <option value="locS">Locative Singular (locS)</option>
+                <option value="vocS">Vocative Singular (vocS)</option>
+                <option value="nomP">Nominative Plural (nomP)</option>
+                <option value="genP">Genitive Plural (genP)</option>
+            </select>
+        </div>
+
+        <div id="nounGameArea" style="display:none;">
+            <div class="prompt" id="nounPrompt"></div>
+            
+            <div class="input-group">
+                <label>Enter Full Word with Correct Ending:</label>
+                <input type="text" id="userDeclinedInput" placeholder="Declined word form...">
+            </div>
+
+            <div class="input-group">
+                <label>Guess English Meaning:</label>
+                <input type="text" id="userEnglishInput" placeholder="English meaning...">
+            </div>
+
+            <button onclick="verifyNounGameSubmission()">Verify & Save</button>
+            <div class="feedback" id="nounFeedbackArea"></div>
+        </div>
+
+        <div id="nounEmptyState" style="display:none;" class="incorrect">
+            <p>All words in your registry already have entries filled out for this specific noun type/case! Try selecting a different case or add more words in the <a href="nouns.html">Noun Registry</a>.</p>
+        </div>
+
+        <div style="margin-top: 15px;">
+            <button onclick="startNounGameRound()" id="nextNounBtn" style="display:none;">Next Word ➔</button>
+        </div>
+    </div>
 
 <script>
         let registry = [];
         let currentChallenge = {};
+        let currentNounGameTarget = {};
 
-        // Available templates mapped to case requirements
         const templates = [
             { id: 2, name: "Direct Possession (Mam + Accusative)", verb: "Mam", caseKey: "accS", prep: "" },
             { id: 4, name: "Location Container (Mieszkam w + Locative)", verb: "Mieszkam w", caseKey: "locS", prep: "w" },
@@ -58,20 +121,48 @@
             { id: 10, name: "Instrument (Piszę + Instrumental)", verb: "Piszę", caseKey: "instS", prep: "" }
         ];
 
-        document.addEventListener("DOMContentLoaded", initDrill);
+        document.addEventListener("DOMContentLoaded", initSystem);
 
-        function initDrill() {
+        function initSystem() {
             registry = JSON.parse(localStorage.getItem("polishRegistry") || "[]");
-            
+            initDrill();
+            if (registry.length > 0) {
+                startNounGameRound();
+            }
+        }
+
+        function switchMode(mode) {
+            const sContainer = document.getElementById("sentenceDrillContainer");
+            const nContainer = document.getElementById("nounTypeContainer");
+            const sBtn = document.getElementById("btnSentenceMode");
+            const nBtn = document.getElementById("btnNounTypeMode");
+
+            if (mode === 'sentence') {
+                sContainer.style.display = "block";
+                nContainer.style.display = "none";
+                sBtn.style.background = "#2980b9"; sBtn.style.color = "#fff";
+                nBtn.style.background = "#ecf0f1"; nBtn.style.color = "#2c3e50";
+            } else {
+                sContainer.style.display = "none";
+                nContainer.style.display = "block";
+                nBtn.style.background = "#2980b9"; nBtn.style.color = "#fff";
+                sBtn.style.background = "#ecf0f1"; sBtn.style.color = "#2c3e50";
+                startNounGameRound();
+            }
+        }
+
+        // --- SENTENCE DRILLS LOGIC ---
+        function initDrill() {
             if (registry.length === 0) {
                 document.getElementById("setupState").innerHTML = `
-                    <p class="incorrect">Registry is empty! Please add some nouns and fill in their cases in the <a href="nouns.html">Noun Registry</a> first.</p>
+                    <p class="incorrect">Registry is empty! Please add some nouns in the <a href="nouns.html">Noun Registry</a> first.</p>
                 `;
                 return;
             }
 
             document.getElementById("setupState").style.display = "none";
             document.getElementById("activeState").style.display = "block";
+            document.getElementById("nextSentenceBtn").style.display = "inline-block";
             nextDrill();
         }
 
@@ -80,17 +171,15 @@
             document.getElementById("userInput").value = "";
             document.getElementById("userInput").disabled = false;
 
-            // Safety Check: Flatten all possible valid word + template combinations
             let validCombos = [];
-            registry.forEach((word, wIndex) => {
-                templates.forEach((tmpl, tIndex) => {
+            registry.forEach((word) => {
+                templates.forEach((tmpl) => {
                     if (word[tmpl.caseKey] && word[tmpl.caseKey].trim() !== "") {
                         validCombos.push({ word, tmpl });
                     }
                 });
             });
 
-            // If no valid combinations exist across the whole registry
             if (validCombos.length === 0) {
                 document.getElementById("drillPrompt").innerHTML = `
                     <span class="incorrect">Registry Warning: None of your stored words have case fields filled out yet! Please update your data in the <a href="nouns.html">Noun Registry</a>.</span>
@@ -99,7 +188,6 @@
                 return;
             }
 
-            // Pick a random valid combination safely without recursion risk
             const selected = validCombos[Math.floor(Math.random() * validCombos.length)];
             const randomWord = selected.word;
             const randomTemplate = selected.tmpl;
@@ -114,7 +202,7 @@
 
             document.getElementById("drillPrompt").innerHTML = `
                 <strong>Template:</strong> ${randomTemplate.name}<br>
-                <strong>Base Word:</strong> ${randomWord.base} ${randomWord.english ? '(' + randomWord.english + ')' : ''} <br>
+                <strong>Base Word:</strong> ${randomWord.base} (${randomWord.gender || 'Unknown Gender'})<br>
                 <em>Compile the correct sentence form.</em>
             `;
         }
@@ -123,7 +211,6 @@
             const userVal = document.getElementById("userInput").value.trim().toLowerCase();
             const expected = currentChallenge.expectedFull.toLowerCase();
             const expectedWordOnly = currentChallenge.expectedWord.toLowerCase();
-
             const feedback = document.getElementById("feedbackArea");
 
             if (userVal === expected || userVal === expectedWordOnly) {
@@ -134,10 +221,88 @@
             document.getElementById("userInput").disabled = true;
         }
 
-        function checkEnter(e) {
+        function checkEnterSentence(e) {
             if (e.key === "Enter") {
                 verifyAnswer();
             }
+        }
+
+        // --- NOUN TYPE GAME LOGIC ---
+        function startNounGameRound() {
+            document.getElementById("nounFeedbackArea").innerHTML = "";
+            document.getElementById("userDeclinedInput").value = "";
+            document.getElementById("userEnglishInput").value = "";
+            document.getElementById("userDeclinedInput").disabled = false;
+            document.getElementById("userEnglishInput").disabled = false;
+
+            registry = JSON.parse(localStorage.getItem("polishRegistry") || "[]");
+            const selectedCaseKey = document.getElementById("targetCaseSelect").value;
+
+            // Filter words that do NOT have this specific case filled out yet
+            let unfilledWords = registry.filter(w => !w[selectedCaseKey] || w[selectedCaseKey].trim() === "");
+
+            if (unfilledWords.length === 0) {
+                document.getElementById("nounGameArea").style.display = "none";
+                document.getElementById("nounEmptyState").style.display = "block";
+                document.getElementById("nextNounBtn").style.display = "none";
+                return;
+            }
+
+            document.getElementById("nounEmptyState").style.display = "none";
+            document.getElementById("nounGameArea").style.display = "block";
+            document.getElementById("nextNounBtn").style.display = "inline-block";
+
+            // Pick a random unfilled word
+            const randomIndex = Math.floor(Math.random() * unfilledWords.length);
+            const targetWordObj = unfilledWords[randomIndex];
+            
+            // Find its original index in the full registry array for updating later
+            const realIndex = registry.findIndex(w => w.base === targetWordObj.base);
+
+            currentNounGameTarget = {
+                registryIndex: realIndex,
+                wordObj: targetWordObj,
+                caseKey: selectedCaseKey
+            };
+
+            document.getElementById("nounPrompt").innerHTML = `
+                Base Word: <strong style="font-size: 1.2em; color: #2980b9;">${targetWordObj.base}</strong><br>
+                Gender: <em>${targetWordObj.gender || 'Not specified'}</em><br>
+                Target Type/Case: <strong>${selectedCaseKey.toUpperCase()}</strong>
+            `;
+        }
+
+        function verifyNounGameSubmission() {
+            const userDeclinedVal = document.getElementById("userDeclinedInput").value.trim().toLowerCase();
+            const userEnglishVal = document.getElementById("userEnglishInput").value.trim().toLowerCase();
+            const feedback = document.getElementById("nounFeedbackArea");
+
+            if (!userDeclinedVal || !userEnglishVal) {
+                alert("Please fill in both inputs before verifying.");
+                return;
+            }
+
+            const wordObj = currentNounGameTarget.wordObj;
+            const expectedEnglish = (wordObj.english || "").trim().toLowerCase();
+
+            // Check English meaning (compared in lowercase)
+            if (expectedEnglish && userEnglishVal !== expectedEnglish) {
+                feedback.innerHTML = `<span class="incorrect">✘ Error: Incorrect English meaning! Expected: "<strong>${wordObj.english}</strong>" (compared in lowercase). Process stopped.</span>`;
+                return;
+            }
+
+            // If English wasn't previously set in registry, record it now along with the declined form.
+            // Save the valid entry to localStorage
+            registry[currentNounGameTarget.registryIndex][currentNounGameTarget.caseKey] = userDeclinedVal;
+            if (!registry[currentNounGameTarget.registryIndex].english) {
+                registry[currentNounGameTarget.registryIndex].english = userEnglishVal;
+            }
+            
+            localStorage.setItem("polishRegistry", JSON.stringify(registry));
+
+            feedback.innerHTML = `<span class="correct">✔ Success! Declined form and English meaning verified and saved to localStorage registry.</span>`;
+            document.getElementById("userDeclinedInput").disabled = true;
+            document.getElementById("userEnglishInput").disabled = true;
         }
     </script>
 </body>

@@ -27,6 +27,7 @@
         .data-section { background: #f8f9fa; padding: 15px; margin-top: 20px; border: 1px dashed #bdc3c7; border-radius: 4px; }
         textarea { width: 100%; height: 60px; font-family: monospace; margin-top: 5px; padding: 8px; border: 1px solid #dcdde1; border-radius: 4px; }
         .link-box { background: #fff; border: 1px solid #dcdde1; border-radius: 6px; padding: 15px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .filter-bar { margin-top: 15px; display: flex; align-items: center; gap: 10px; }
     </style>
 </head>
 <body>
@@ -67,6 +68,15 @@
             <button onclick="toggleEnglish()" id="toggleBtn" style="float: right;">Hide English</button>
         </div>
 
+        <div class="filter-bar">
+            <label for="filterSelect"><strong>Filter Registry:</strong></label>
+            <select id="filterSelect" onchange="renderTable()">
+                <option value="all">Show All Entries</option>
+                <option value="regular">Regular Only</option>
+                <option value="exceptions">Exceptions Only</option>
+            </select>
+        </div>
+
         <div class="data-section">
             <label><strong>Bulk Import JSON Data (Array of base/english words):</strong></label>
             <p style="font-size: 0.9em; color: #7f8c8d; margin: 5px 0 8px 0;">
@@ -91,6 +101,7 @@
                 <th>Base (Mianownik / Nom.)</th>
                 <th class="eng-col">English</th>
                 <th>Gender / Rodzaj</th>
+                <th>Exception</th>
                 <th>Dopełniacz / Gen. Sing. (-u/-a/-y/-i)</th>
                 <th>Celownik / Dat. Sing. (-owi/-u/-e)</th>
                 <th>Biernik / Acc. Sing. (Identical/-a/-ę)</th>
@@ -134,6 +145,7 @@
                 base: word,
                 english: english,
                 gender: gender,
+                isException: false,
                 genS: "", datS: "", accS: "", instS: "", locS: "", vocS: "", nomP: "", genP: ""
             };
 
@@ -162,6 +174,7 @@
                     base: item.base || "",
                     english: item.english || "",
                     gender: item.gender || "",
+                    isException: typeof item.isException === 'boolean' ? item.isException : false,
                     genS: item.genS || "",
                     datS: item.datS || "",
                     accS: item.accS || "",
@@ -229,6 +242,12 @@
             localStorage.setItem("polishRegistry", JSON.stringify(registry));
         }
 
+        function updateCheckbox(index, field, checkbox) {
+            const registry = getRegistry();
+            registry[index][field] = checkbox.checked;
+            localStorage.setItem("polishRegistry", JSON.stringify(registry));
+        }
+
         function deleteRow(index) {
             const registry = getRegistry();
             registry.splice(index, 1);
@@ -259,8 +278,13 @@
             const tbody = document.getElementById("tableBody");
             tbody.innerHTML = "";
             const registry = getRegistry();
+            const filterValue = document.getElementById("filterSelect").value;
 
             registry.forEach((item, index) => {
+                // Apply filtering logic based on selected dropdown value
+                if (filterValue === "regular" && item.isException) return;
+                if (filterValue === "exceptions" && !item.isException) return;
+
                 const tr = document.createElement("tr");
                 tr.innerHTML = `
                     <td><strong>${item.base}</strong></td>
@@ -275,6 +299,7 @@
                             <option value="Neuter" ${item.gender === 'Neuter' ? 'selected' : ''}>Neuter</option>
                         </select>
                     </td>
+                    <td><input type="checkbox" ${item.isException ? 'checked' : ''} onchange="updateCheckbox(${index}, 'isException', this)"></td>
                     <td contenteditable="true" onblur="updateField(${index}, 'genS', this.innerText)">${item.genS || ''}</td>
                     <td contenteditable="true" onblur="updateField(${index}, 'datS', this.innerText)">${item.datS || ''}</td>
                     <td contenteditable="true" onblur="updateField(${index}, 'accS', this.innerText)">${item.accS || ''}</td>

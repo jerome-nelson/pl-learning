@@ -58,11 +58,12 @@
             <input type="text" id="englishInput" placeholder="English Meaning...">
             <select id="genderInput">
                 <option value="">-- Select Gender --</option>
-                <option value="M-Inanimate">Masculine Inanimate (Nieżywotny)</option>
-                <option value="M-Animate">Masculine Animate (Żywotny)</option>
-                <option value="M-Personal">Masculine Personal (Osobowy)</option>
-                <option value="Feminine">Feminine (Żeński)</option>
-                <option value="Neuter">Neuter (Nijaki)</option>
+                <option value="M-Inanimate">Masculine Inanimate</option>
+                <option value="M-Animate">Masculine Animate</option>
+                <option value="M-Personal">Masculine Personal</option>
+                <option value="Feminine">Feminine</option>
+                <option value="Neuter">Neuter</option>
+                <option value="Niemęskoosobowy">Niemęskoosobowy (Plural Only)</option>
             </select>
             <button onclick="addWord()">Compile / Add Entry</button>
             <button onclick="toggleEnglish()" id="toggleBtn" style="float: right;">Hide English</button>
@@ -300,6 +301,7 @@
                             <option value="M-Personal" ${item.gender === 'M-Personal' ? 'selected' : ''}>M-Personal</option>
                             <option value="Feminine" ${item.gender === 'Feminine' ? 'selected' : ''}>Feminine</option>
                             <option value="Neuter" ${item.gender === 'Neuter' ? 'selected' : ''}>Neuter</option>
+                            <option value="Niemęskoosobowy" ${item.gender === 'Niemęskoosobowy' ? 'selected' : ''}>Niemęskoosobowy</option>
                         </select>
                     </td>
                     <td><input type="checkbox" ${item.isException ? 'checked' : ''} onchange="updateCheckbox(${index}, 'isException', this)"></td>

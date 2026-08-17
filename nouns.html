@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Polish Grammar System: Noun & Adjective Registry</title>
+    <title>Polish Grammar System: Rejestr Rzeczowników / Noun Registry</title>
     <style>
         body { font-family: monospace; margin: 20px; background: #f4f6f9; color: #2c3e50; line-height: 1.6; }
         h1 { font-size: 1.6em; border-bottom: 2px solid #bdc3c7; padding-bottom: 10px; }
@@ -31,20 +31,20 @@
 </head>
 <body>
 
-    <h1>Polish Grammar System: Noun & Adjective Registry</h1>
-    <p>Interactive data compilation matrix for vocabulary, genders, and declension states.</p>
+    <h1>Polish Grammar System: Rejestr Rzeczowników / Noun Registry</h1>
+    <p>Interactive data compilation matrix for vocabulary, genders, grammatical endings, and declension states across places.</p>
     
     <div class="nav">
         <strong>System Navigation:</strong> 
         <a href="index.html">📂 Structural Templates</a> | 
-        <a href="cases.html">📊 Case Registry</a> |
-        <a href="nouns.html">📝 Noun Registry</a> |
+        <a href="cases.html">📊 Rejestr Przypadków / Case Registry</a> |
+        <a href="nouns.html">📝 Rejestr Rzeczowników / Noun Registry</a> |
         <a href="drill.html">⚡ Compilation Drills</a>
     </div>
 
     <div class="link-box">
         <div>
-            <strong>📖 Need help identifying noun types?</strong> 
+            <strong>💡 Need help identifying noun / place types?</strong> 
             <span style="color: #7f8c8d; font-size: 0.9em; margin-left: 10px;">Check out the simple guide on genders and sub-types.</span>
         </div>
         <a href="noun-types.html" style="background: #ecf0f1; border: 1px solid #bdc3c7; padding: 8px 14px; text-decoration: none; color: #2c3e50; font-weight: bold; border-radius: 4px;">View Noun Types Guide &rarr;</a>
@@ -53,15 +53,15 @@
     <div class="control-panel">
         <h3>Add New Entry</h3>
         <div style="margin-bottom: 10px;">
-            <input type="text" id="wordInput" placeholder="Base Word (Nom.)...">
+            <input type="text" id="wordInput" placeholder="Base Word (Mianownik / Nom.)...">
             <input type="text" id="englishInput" placeholder="English Meaning...">
             <select id="genderInput">
                 <option value="">-- Select Gender --</option>
-                <option value="M-Inanimate">Masculine Inanimate</option>
-                <option value="M-Animate">Masculine Animate</option>
-                <option value="M-Personal">Masculine Personal</option>
-                <option value="Feminine">Feminine</option>
-                <option value="Neuter">Neuter</option>
+                <option value="M-Inanimate">Masculine Inanimate (Nieżywotny)</option>
+                <option value="M-Animate">Masculine Animate (Żywotny)</option>
+                <option value="M-Personal">Masculine Personal (Osobowy)</option>
+                <option value="Feminine">Feminine (Żeński)</option>
+                <option value="Neuter">Neuter (Nijaki)</option>
             </select>
             <button onclick="addWord()">Compile / Add Entry</button>
             <button onclick="toggleEnglish()" id="toggleBtn" style="float: right;">Hide English</button>
@@ -88,17 +88,17 @@
     <table id="registryTable">
         <thead>
             <tr>
-                <th>Base (Nom.)</th>
+                <th>Base (Mianownik / Nom.)</th>
                 <th class="eng-col">English</th>
-                <th>Gender</th>
-                <th>Gen. Sing.</th>
-                <th>Dat. Sing.</th>
-                <th>Acc. Sing.</th>
-                <th>Inst. Sing.</th>
-                <th>Loc. Sing.</th>
-                <th>Voc. Sing.</th>
-                <th>Nom. Plur.</th>
-                <th>Gen. Plur.</th>
+                <th>Gender / Rodzaj</th>
+                <th>Dopełniacz / Gen. Sing. (-u/-a/-y/-i)</th>
+                <th>Celownik / Dat. Sing. (-owi/-u/-e)</th>
+                <th>Biernik / Acc. Sing. (Identical/-a/-ę)</th>
+                <th>Narzędnik / Inst. Sing. (-em/-ą)</th>
+                <th>Miejscownik / Loc. Sing. (-ie/-u/-e)</th>
+                <th>Wołacz / Voc. Sing. (-e/-u/-o/-iu)</th>
+                <th>Mianownik / Nom. Plur. (-y/-i/-e/-a)</th>
+                <th>Dopełniacz / Gen. Plur. (-ów/-i/-y/Ø)</th>
                 <th>Action</th>
             </tr>
         </thead>

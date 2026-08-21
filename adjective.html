@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Polish Grammar System: Rejestr Rzeczowników / Noun Registry</title>
+    <title>Polish Grammar System: Rejestr Przymiotników / Adjective Registry</title>
     <style>
         body { font-family: monospace; margin: 20px; background: #f4f6f9; color: #2c3e50; line-height: 1.6; }
         h1 { font-size: 1.6em; border-bottom: 2px solid #bdc3c7; padding-bottom: 10px; }
+        h2 { font-size: 1.3em; margin-top: 40px; color: #34495e; border-bottom: 1px solid #dcdde1; padding-bottom: 6px; }
         h3 { margin-top: 0; color: #2c3e50; font-size: 1.1em; }
         .nav { background: #fff; padding: 12px 15px; border: 1px solid #dcdde1; border-radius: 6px; margin-bottom: 25px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .nav a { text-decoration: none; color: #2980b9; font-weight: bold; margin: 0 5px; }
@@ -32,8 +33,8 @@
 </head>
 <body>
 
-    <h1>Polish Grammar System: Rejestr Rzeczowników / Noun Registry</h1>
-    <p>Interactive data compilation matrix for vocabulary, genders, grammatical endings, and declension states across places.</p>
+    <h1>Polish Grammar System: Rejestr Przymiotników / Adjective Registry</h1>
+    <p>Interactive data compilation matrix for adjective vocabulary, gender agreements, comparative/superlative forms, and case declensions.</p>
     
 <div class="nav">
     <strong>System Navigation:</strong> 
@@ -44,29 +45,26 @@
     <a href="adjectives.html">🏷️ Rejestr Przymiotników / Adjective Registry</a> |
     <a href="drill.html">⚡ Compilation Drills</a>
 </div>
+
     <div class="link-box">
         <div>
-            <strong>💡 Need help identifying noun / place types?</strong> 
-            <span style="color: #7f8c8d; font-size: 0.9em; margin-left: 10px;">Check out the simple guide on genders and sub-types.</span>
+            <strong>💡 Need help understanding adjective agreement patterns?</strong> 
+            <span style="color: #7f8c8d; font-size: 0.9em; margin-left: 10px;">Adjectives must match the gender, case, and number of the noun they modify.</span>
         </div>
-        <a href="noun-types.html" style="background: #ecf0f1; border: 1px solid #bdc3c7; padding: 8px 14px; text-decoration: none; color: #2c3e50; font-weight: bold; border-radius: 4px;">View Noun Types Guide &rarr;</a>
+        <a href="adjective-types.html" style="background: #ecf0f1; border: 1px solid #bdc3c7; padding: 8px 14px; text-decoration: none; color: #2c3e50; font-weight: bold; border-radius: 4px;">View Adjective Types Guide &rarr;</a>
     </div>
 
     <div class="control-panel">
-        <h3>Add New Entry</h3>
+        <h3>Add New Adjective Entry</h3>
         <div style="margin-bottom: 10px;">
-            <input type="text" id="wordInput" placeholder="Base Word (Mianownik / Nom.)...">
+            <input type="text" id="wordInput" placeholder="Base Adjective (Nom. Masc. Sing.)...">
             <input type="text" id="englishInput" placeholder="English Meaning...">
-            <select id="genderInput">
-                <option value="">-- Select Gender --</option>
-                <option value="M-Inanimate">Masculine Inanimate</option>
-                <option value="M-Animate">Masculine Animate</option>
-                <option value="M-Personal">Masculine Personal</option>
-                <option value="Feminine">Feminine</option>
-                <option value="Neuter">Neuter</option>
-                <option value="Niemęskoosobowy">Niemęskoosobowy (Plural Only)</option>
+            <select id="typeInput">
+                <option value="">-- Select Type --</option>
+                <option value="Hard-stem">Hard-stem (-y / -a / -e)</option>
+                <option value="Soft-stem">Soft-stem (-i / -a / -e)</option>
             </select>
-            <button onclick="addWord()">Compile / Add Entry</button>
+            <button onclick="addAdjective()">Compile / Add Entry</button>
             <button onclick="toggleEnglish()" id="toggleBtn" style="float: right;">Hide English</button>
         </div>
 
@@ -74,45 +72,37 @@
             <label for="filterSelect"><strong>Filter Registry:</strong></label>
             <select id="filterSelect" onchange="renderTable()">
                 <option value="all">Show All Entries</option>
-                <option value="regular">Regular Only</option>
-                <option value="exceptions">Exceptions Only</option>
+                <option value="hard">Hard-stem Only</option>
+                <option value="soft">Soft-stem Only</option>
             </select>
         </div>
 
         <div class="data-section">
-            <label><strong>Bulk Import JSON Data (Array of base/english words):</strong></label>
-            <p style="font-size: 0.9em; color: #7f8c8d; margin: 5px 0 8px 0;">
-                Need a template? Download or check out the <a href="noun-samples.json" download style="color: #2980b9; font-weight: bold;">noun-samples.json file</a>.
-            </p>
-            <textarea id="importInput" placeholder='[{"base": "dom", "english": "house", ...}]'></textarea>
+            <label><strong>Bulk Import JSON Data (Array of adjective objects):</strong></label>
+            <textarea id="importInput" placeholder='[{"base": "nowy", "english": "new", "type": "Hard-stem"}]'></textarea>
             <button onclick="importJSON()" style="margin-top: 8px;">Import JSON into LocalStorage</button>
         </div>
 
         <div class="data-section">
             <label><strong>Export LocalStorage Registry:</strong></label>
-            <p style="font-size: 0.9em; color: #7f8c8d; margin: 5px 0 8px 0;">Download or copy your complete registry data as JSON backup.</p>
+            <p style="font-size: 0.9em; color: #7f8c8d; margin: 5px 0 8px 0;">Download or copy your complete adjective registry data as JSON backup.</p>
             <button onclick="exportJSON()">Download JSON Backup</button>
             <button onclick="copyJSONToClipboard()" style="margin-left: 10px;">Copy JSON to Clipboard</button>
         </div>
     </div>
 
-    <h3>Compiled Registry Table</h3>
+    <h3>Compiled Adjective Registry Table</h3>
     <table id="registryTable">
         <thead>
             <tr>
-                <th>Base (Mianownik / Nom.)</th>
+                <th>Base (Mianownik / Nom. Masc.)</th>
                 <th class="eng-col">English</th>
-                <th>Gender / Rodzaj</th>
-                <th>Exception</th>
-                <th>Exception Reason</th>
-                <th>Dopełniacz / Gen. Sing. (-u/-a/-y/-i)</th>
-                <th>Celownik / Dat. Sing. (-owi/-u/-e)</th>
-                <th>Biernik / Acc. Sing. (Identical/-a/-ę)</th>
-                <th>Narzędnik / Inst. Sing. (-em/-ą)</th>
-                <th>Miejscownik / Loc. Sing. (-ie/-u/-e)</th>
-                <th>Wołacz / Voc. Sing. (-e/-u/-o/-iu)</th>
-                <th>Mianownik / Nom. Plur. (-y/-i/-e/-a)</th>
-                <th>Dopełniacz / Gen. Plur. (-ów/-i/-y/Ø)</th>
+                <th>Stem Type</th>
+                <th>Feminine Nom. (-a)</th>
+                <th>Neuter Nom. (-e)</th>
+                <th>Masculine Personal Plur. (-i/-y)</th>
+                <th>Comparative (-szy / bardziej)</th>
+                <th>Superlative (naj...)</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -124,39 +114,41 @@
     <button class="clear-btn" onclick="clearRegistry()">Clear All Data</button>
 
     <script>
-        let englishVisible = localStorage.getItem("englishVisible") !== "false";
+        let englishVisible = localStorage.getItem("adjectiveEnglishVisible") !== "false";
 
         document.addEventListener("DOMContentLoaded", () => {
             updateToggleUI();
             renderTable();
         });
 
-        function addWord() {
+        function addAdjective() {
             const wordInput = document.getElementById("wordInput");
             const englishInput = document.getElementById("englishInput");
-            const genderInput = document.getElementById("genderInput");
+            const typeInput = document.getElementById("typeInput");
             const word = wordInput.value.trim();
             const english = englishInput.value.trim();
-            const gender = genderInput.value;
+            const type = typeInput.value;
 
             if (!word) {
-                alert("Please enter a valid base word.");
+                alert("Please enter a valid base adjective.");
                 return;
             }
 
             const rowData = {
                 base: word,
                 english: english,
-                gender: gender,
-                isException: false,
-                exceptionReason: "",
-                genS: "", datS: "", accS: "", instS: "", locS: "", vocS: "", nomP: "", genP: ""
+                type: type,
+                femNom: "",
+                neutNom: "",
+                mascPersPlur: "",
+                comparative: "",
+                superlative: ""
             };
 
             saveToLocalStorage(rowData);
             wordInput.value = "";
             englishInput.value = "";
-            genderInput.value = "";
+            typeInput.value = "";
             renderTable();
         }
 
@@ -177,26 +169,21 @@
                 const formattedData = parsedData.map(item => ({
                     base: item.base || "",
                     english: item.english || "",
-                    gender: item.gender || "",
-                    isException: typeof item.isException === 'boolean' ? item.isException : false,
-                    exceptionReason: item.exceptionReason || "",
-                    genS: item.genS || "",
-                    datS: item.datS || "",
-                    accS: item.accS || "",
-                    instS: item.instS || "",
-                    locS: item.locS || "",
-                    vocS: item.vocS || "",
-                    nomP: item.nomP || "",
-                    genP: item.genP || ""
+                    type: item.type || "",
+                    femNom: item.femNom || "",
+                    neutNom: item.neutNom || "",
+                    mascPersPlur: item.mascPersPlur || "",
+                    comparative: item.comparative || "",
+                    superlative: item.superlative || ""
                 }));
 
                 let currentRegistry = getRegistry();
                 const mergedRegistry = currentRegistry.concat(formattedData);
-                localStorage.setItem("polishRegistry", JSON.stringify(mergedRegistry));
+                localStorage.setItem("polishAdjectiveRegistry", JSON.stringify(mergedRegistry));
                 
                 document.getElementById("importInput").value = "";
                 renderTable();
-                alert(`Successfully imported ${formattedData.length} entries into localStorage!`);
+                alert(`Successfully imported ${formattedData.length} adjective entries into localStorage!`);
             } catch (e) {
                 alert("Invalid JSON format. Please check your syntax.");
             }
@@ -211,7 +198,7 @@
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(registry, null, 2));
             const downloadAnchor = document.createElement('a');
             downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", "polish_registry_backup.json");
+            downloadAnchor.setAttribute("download", "polish_adjective_registry_backup.json");
             document.body.appendChild(downloadAnchor);
             downloadAnchor.click();
             downloadAnchor.remove();
@@ -225,51 +212,45 @@
             }
             const jsonString = JSON.stringify(registry, null, 2);
             navigator.clipboard.writeText(jsonString).then(() => {
-                alert("Registry JSON copied to clipboard successfully!");
+                alert("Adjective Registry JSON copied to clipboard successfully!");
             }).catch(err => {
                 alert("Failed to copy JSON to clipboard.");
             });
         }
 
         function getRegistry() {
-            return JSON.parse(localStorage.getItem("polishRegistry") || "[]");
+            return JSON.parse(localStorage.getItem("polishAdjectiveRegistry") || "[]");
         }
 
         function saveToLocalStorage(data) {
             const registry = getRegistry();
             registry.push(data);
-            localStorage.setItem("polishRegistry", JSON.stringify(registry));
+            localStorage.setItem("polishAdjectiveRegistry", JSON.stringify(registry));
         }
 
         function updateField(index, field, value) {
             const registry = getRegistry();
             registry[index][field] = value;
-            localStorage.setItem("polishRegistry", JSON.stringify(registry));
-        }
-
-        function updateCheckbox(index, field, checkbox) {
-            const registry = getRegistry();
-            registry[index][field] = checkbox.checked;
-            localStorage.setItem("polishRegistry", JSON.stringify(registry));
+            localStorage.setItem("polishAdjectiveRegistry", JSON.stringify(registry));
         }
 
         function deleteRow(index) {
             const registry = getRegistry();
             registry.splice(index, 1);
-            localStorage.setItem("polishRegistry", JSON.stringify(registry));
+            localStorage.setItem("polishAdjectiveRegistry", JSON.stringify(registry));
             renderTable();
         }
 
         function clearRegistry() {
-            if (confirm("Are you sure you want to clear the entire registry?")) {
-                localStorage.removeItem("polishRegistry");
+            if (confirm("Are you sure you want to clear the entire adjective registry?")) {
+                localStorage.removeItem("polishAdjectiveRegistry");
                 renderTable();
             }
         }
 
         function toggleEnglish() {
             englishVisible = !englishVisible;
-            localStorage.setItem("englishVisible", englishVisible);
+            localStorage.setItem("adjectiveEnglishVisible", englishVisible);
             updateToggleUI();
             renderTable();
         }
@@ -286,35 +267,25 @@
             const filterValue = document.getElementById("filterSelect").value;
 
             registry.forEach((item, index) => {
-                // Apply filtering logic based on selected dropdown value
-                if (filterValue === "regular" && item.isException) return;
-                if (filterValue === "exceptions" && !item.isException) return;
+                if (filterValue === "hard" && item.type !== "Hard-stem") return;
+                if (filterValue === "soft" && item.type !== "Soft-stem") return;
 
                 const tr = document.createElement("tr");
                 tr.innerHTML = `
                     <td><strong>${item.base}</strong></td>
                     <td class="eng-col ${englishVisible ? '' : 'hidden-col'}" contenteditable="true" onblur="updateField(${index}, 'english', this.innerText)">${item.english || ''}</td>
                     <td>
-                        <select onchange="updateField(${index}, 'gender', this.value)">
+                        <select onchange="updateField(${index}, 'type', this.value)">
                             <option value="">-- Select --</option>
-                            <option value="M-Inanimate" ${item.gender === 'M-Inanimate' ? 'selected' : ''}>M-Inanimate</option>
-                            <option value="M-Animate" ${item.gender === 'M-Animate' ? 'selected' : ''}>M-Animate</option>
-                            <option value="M-Personal" ${item.gender === 'M-Personal' ? 'selected' : ''}>M-Personal</option>
-                            <option value="Feminine" ${item.gender === 'Feminine' ? 'selected' : ''}>Feminine</option>
-                            <option value="Neuter" ${item.gender === 'Neuter' ? 'selected' : ''}>Neuter</option>
-                            <option value="Niemęskoosobowy" ${item.gender === 'Niemęskoosobowy' ? 'selected' : ''}>Niemęskoosobowy</option>
+                            <option value="Hard-stem" ${item.type === 'Hard-stem' ? 'selected' : ''}>Hard-stem</option>
+                            <option value="Soft-stem" ${item.type === 'Soft-stem' ? 'selected' : ''}>Soft-stem</option>
                         </select>
                     </td>
-                    <td><input type="checkbox" ${item.isException ? 'checked' : ''} onchange="updateCheckbox(${index}, 'isException', this)"></td>
-                    <td contenteditable="true" onblur="updateField(${index}, 'exceptionReason', this.innerText)">${item.exceptionReason || ''}</td>
-                    <td contenteditable="true" onblur="updateField(${index}, 'genS', this.innerText)">${item.genS || ''}</td>
-                    <td contenteditable="true" onblur="updateField(${index}, 'datS', this.innerText)">${item.datS || ''}</td>
-                    <td contenteditable="true" onblur="updateField(${index}, 'accS', this.innerText)">${item.accS || ''}</td>
-                    <td contenteditable="true" onblur="updateField(${index}, 'instS', this.innerText)">${item.instS || ''}</td>
-                    <td contenteditable="true" onblur="updateField(${index}, 'locS', this.innerText)">${item.locS || ''}</td>
-                    <td contenteditable="true" onblur="updateField(${index}, 'vocS', this.innerText)">${item.vocS || ''}</td>
-                    <td contenteditable="true" onblur="updateField(${index}, 'nomP', this.innerText)">${item.nomP || ''}</td>
-                    <td contenteditable="true" onblur="updateField(${index}, 'genP', this.innerText)">${item.genP || ''}</td>
+                    <td contenteditable="true" onblur="updateField(${index}, 'femNom', this.innerText)">${item.femNom || ''}</td>
+                    <td contenteditable="true" onblur="updateField(${index}, 'neutNom', this.innerText)">${item.neutNom || ''}</td>
+                    <td contenteditable="true" onblur="updateField(${index}, 'mascPersPlur', this.innerText)">${item.mascPersPlur || ''}</td>
+                    <td contenteditable="true" onblur="updateField(${index}, 'comparative', this.innerText)">${item.comparative || ''}</td>
+                    <td contenteditable="true" onblur="updateField(${index}, 'superlative', this.innerText)">${item.superlative || ''}</td>
                     <td><button class="del-btn" onclick="deleteRow(${index})">X</button></td>
                 `;
                 tbody.appendChild(tr);

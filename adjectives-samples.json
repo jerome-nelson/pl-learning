@@ -1,0 +1,120 @@
+[
+  {
+    "base": "nowy",
+    "english": "new",
+    "aspect": "Adjective",
+    "comparison": {
+      "positive": "nowy",
+      "comparative": "nowszy",
+      "superlative": "najnowszy"
+    },
+    "declension_singular": {
+      "masculine": { 
+        "nominative": "nowy", 
+        "genitive": "nowego", 
+        "dative": "nowemu", 
+        "accusative": "nowy / nowego", 
+        "instrumental": "nowym", 
+        "locative": "nowym", 
+        "vocative": "nowy" 
+      },
+      "feminine": { 
+        "nominative": "nowa", 
+        "genitive": "nowej", 
+        "dative": "nowej", 
+        "accusative": "nową", 
+        "instrumental": "nową", 
+        "locative": "nowej", 
+        "vocative": "nowa" 
+      },
+      "neuter": { 
+        "nominative": "nowe", 
+        "genitive": "nowego", 
+        "dative": "nowemu", 
+        "accusative": "nowe", 
+        "instrumental": "nowym", 
+        "locative": "nowym", 
+        "vocative": "nowe" 
+      }
+    },
+    "declension_plural": {
+      "virile": { 
+        "nominative": "nowi", 
+        "genitive": "nowych", 
+        "dative": "nowym", 
+        "accusative": "nowych", 
+        "instrumental": "nowymi", 
+        "locative": "nowych", 
+        "vocative": "nowi" 
+      },
+      "non_virile": { 
+        "nominative": "nowe", 
+        "genitive": "nowych", 
+        "dative": "nowym", 
+        "accusative": "nowe", 
+        "instrumental": "nowymi", 
+        "locative": "nowych", 
+        "vocative": "nowe" 
+      }
+    }
+  },
+  {
+    "base": "dobry",
+    "english": "good",
+    "aspect": "Adjective",
+    "comparison": {
+      "positive": "dobry",
+      "comparative": "lepszy",
+      "superlative": "najlepszy"
+    },
+    "declension_singular": {
+      "masculine": { 
+        "nominative": "dobry", 
+        "genitive": "dobrego", 
+        "dative": "dobremu", 
+        "accusative": "dobry / dobrego", 
+        "instrumental": "dobrym", 
+        "locative": "dobrym", 
+        "vocative": "dobry" 
+      },
+      "feminine": { 
+        "nominative": "dobra", 
+        "genitive": "dobrej", 
+        "dative": "dobrej", 
+        "accusative": "dobrą", 
+        "instrumental": "dobrą", 
+        "locative": "dobrej", 
+        "vocative": "dobra" 
+      },
+      "neuter": { 
+        "nominative": "dobre", 
+        "genitive": "dobrego", 
+        "dative": "dobremu", 
+        "accusative": "dobre", 
+        "instrumental": "dobrym", 
+        "locative": "dobrym", 
+        "vocative": "dobre" 
+      }
+    },
+    "declension_plural": {
+      "virile": { 
+        "nominative": "dobre", 
+        "genitive": "dobrych", 
+        "dative": "dobrym", 
+        "accusative": "dobrych", 
+        "instrumental": "dobrymi", 
+        "locative": "dobrych", 
+        "vocative": "dobre" 
+      },
+      "non_virile": { 
+        "nominative": "dobre", 
+        "genitive": "dobrych", 
+        "dative": "dobrym", 
+        "accusative": "dobre", 
+        "instrumental": "dobrymi", 
+        "locative": "dobrych", 
+        "vocative": "dobre" 
+      }
+    }
+  }
+]

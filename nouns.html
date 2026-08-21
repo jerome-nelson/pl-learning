@@ -35,13 +35,14 @@
     <h1>Polish Grammar System: Rejestr Rzeczowników / Noun Registry</h1>
     <p>Interactive data compilation matrix for vocabulary, genders, grammatical endings, and declension states across places.</p>
     
-    <div class="nav">
-        <strong>System Navigation:</strong> 
-        <a href="index.html">📂 Structural Templates</a> | 
-        <a href="cases.html">📊 Rejestr Przypadków / Case Registry</a> |
-        <a href="nouns.html">📝 Rejestr Rzeczowników / Noun Registry</a> |
-        <a href="drill.html">⚡ Compilation Drills</a>
-    </div>
+<div class="nav">
+    <strong>System Navigation:</strong> 
+    <a href="index.html">📂 Structural Templates</a> | 
+    <a href="cases.html">📊 Rejestr Przypadków / Case Registry</a> |
+    <a href="nouns.html">📝 Rejestr Rzeczowników / Noun Registry</a> |
+    <a href="verbs.html">⚡ Rejestr Czasowników / Verb Registry</a> |
+    <a href="drill.html">⚡ Compilation Drills</a>
+</div>
 
     <div class="link-box">
         <div>
@@ -81,7 +82,7 @@
         <div class="data-section">
             <label><strong>Bulk Import JSON Data (Array of base/english words):</strong></label>
             <p style="font-size: 0.9em; color: #7f8c8d; margin: 5px 0 8px 0;">
-                Need a template? Download or check out the <a href="sample.json" download style="color: #2980b9; font-weight: bold;">sample.json file</a>.
+                Need a template? Download or check out the <a href="noun-samples.json" download style="color: #2980b9; font-weight: bold;">noun-samples.json file</a>.
             </p>
             <textarea id="importInput" placeholder='[{"base": "dom", "english": "house", ...}]'></textarea>
             <button onclick="importJSON()" style="margin-top: 8px;">Import JSON into LocalStorage</button>

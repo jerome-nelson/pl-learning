@@ -1,0 +1,98 @@
+[
+  {
+    "infinitive": "być",
+    "english": "to be",
+    "aspect": "Imperfective",
+    "present": { "ja": "", "ty": "", "on": "", "my": "", "wy": "", "oni": "" },
+    "past": { "m_ja": "", "f_ja": "", "m_on": "", "f_ona": "", "n_ono": "", "m_my": "", "f_my": "", "m_oni": "", "f_oney": "" },
+    "future": { "ja": "", "ty": "", "on": "", "my": "", "wy": "", "oni": "" }
+  },
+  {
+    "infinitive": "mieć",
+    "english": "to have",
+    "aspect": "Imperfective",
+    "present": { "ja": "", "ty": "", "on": "", "my": "", "wy": "", "oni": "" },
+    "past": { "m_ja": "", "f_ja": "", "m_on": "", "f_ona": "", "n_ono": "", "m_my": "", "f_my": "", "m_oni": "", "f_oney": "" },
+    "future": { "ja": "", "ty": "", "on": "", "my": "", "wy": "", "oni": "" }
+  },
+  {
+    "infinitive": "robić",
+    "english": "to do / make",
+    "aspect": "Imperfective",
+    "present": { "ja": "", "ty": "", "on": "", "my": "", "wy": "", "oni": "" },
+    "past": { "m_ja": "", "f_ja": "", "m_on": "", "f_ona": "", "n_ono": "", "m_my": "", "f_my": "", "m_oni": "", "f_oney": "" },
+    "future": { "ja": "", "ty": "", "on": "", "my": "", "wy": "", "oni": "" }
+  },
+  {
+    "infinitive": "zrobić",
+    "english": "to do / make (completed)",
+    "aspect": "Perfective",
+    "present": { "ja": "", "ty": "", "on": "", "my": "", "wy": "", "oni": "" },
+    "past": { "m_ja": "", "f_ja": "", "m_on": "", "f_ona": "", "n_ono": "", "m_my": "", "f_my": "", "m_oni": "", "f_oney": "" },
+    "future": { "ja": "", "ty": "", "on": "", "my": "", "wy": "", "oni": "" }
+  },
+  {
+    "infinitive": "mówić",
+    "english": "to speak / say",
+    "aspect": "Imperfective",
+    "present": { "ja": "", "ty": "", "on": "", "my": "", "wy": "", "oni": "" },
+    "past": { "m_ja": "", "f_ja": "", "m_on": "", "f_ona": "", "n_ono": "", "m_my": "", "f_my": "", "m_oni": "", "f_oney": "" },
+    "future": { "ja": "", "ty": "", "on": "", "my": "", "wy": "", "oni": "" }
+  },
+  {
+    "infinitive": "powiedzieć",
+    "english": "to tell / say (completed)",
+    "aspect": "Perfective",
+    "present": { "ja": "", "ty": "", "on": "", "my": "", "wy": "", "oni": "" },
+    "past": { "m_ja": "", "f_ja": "", "m_on": "", "f_ona": "", "n_ono": "", "m_my": "", "f_my": "", "m_oni": "", "f_oney": "" },
+    "future": { "ja": "", "ty": "", "on": "", "my": "", "wy": "", "oni": "" }
+  },
+  {
+    "infinitive": "chcieć",
+    "english": "to want",
+    "aspect": "Imperfective",
+    "present": { "ja": "", "ty": "", "on": "", "my": "", "wy": "", "oni": "" },
+    "past": { "m_ja": "", "f_ja": "", "m_on": "", "f_ona": "", "n_ono": "", "m_my": "", "f_my": "", "m_oni": "", "f_oney": "" },
+    "future": { "ja": "", "ty": "", "on": "", "my": "", "wy": "", "oni": "" }
+  },
+  {
+    "infinitive": "wiedzieć",
+    "english": "to know (a fact)",
+    "aspect": "Imperfective",
+    "present": { "ja": "", "ty": "", "on": "", "my": "", "wy": "", "oni": "" },
+    "past": { "m_ja": "", "f_ja": "", "m_on": "", "f_ona": "", "n_ono": "", "m_my": "", "f_my": "", "m_oni": "", "f_oney": "" },
+    "future": { "ja": "", "ty": "", "on": "", "my": "", "wy": "", "oni": "" }
+  },
+  {
+    "infinitive": "jeść",
+    "english": "to eat",
+    "aspect": "Imperfective",
+    "present": { "ja": "", "ty": "", "on": "", "my": "", "wy": "", "oni": "" },
+    "past": { "m_ja": "", "f_ja": "", "m_on": "", "f_ona": "", "n_ono": "", "m_my": "", "f_my": "", "m_oni": "", "f_oney": "" },
+    "future": { "ja": "", "ty": "", "on": "", "my": "", "wy": "", "oni": "" }
+  },
+  {
+    "infinitive": "pić",
+    "english": "to drink",
+    "aspect": "Imperfective",
+    "present": { "ja": "", "ty": "", "on": "", "my": "", "wy": "", "oni": "" },
+    "past": { "m_ja": "", "f_ja": "", "m_on": "", "f_ona": "", "n_ono": "", "m_my": "", "f_my": "", "m_oni": "", "f_oney": "" },
+    "future": { "ja": "", "ty": "", "on": "", "my": "", "wy": "", "oni": "" }
+  },
+  {
+    "infinitive": "rozumieć",
+    "english": "to understand",
+    "aspect": "Imperfective",
+    "present": { "ja": "", "ty": "", "on": "", "my": "", "wy": "", "oni": "" },
+    "past": { "m_ja": "", "f_ja": "", "m_on": "", "f_ona": "", "n_ono": "", "m_my": "", "f_my": "", "m_oni": "", "f_oney": "" },
+    "future": { "ja": "", "ty": "", "on": "", "my": "", "wy": "", "oni": "" }
+  },
+  {
+    "infinitive": "organizować",
+    "english": "to organize",
+    "aspect": "Biaspectual",
+    "present": { "ja": "", "ty": "", "on": "", "my": "", "wy": "", "oni": "" },
+    "past": { "m_ja": "", "f_ja": "", "m_on": "", "f_ona": "", "n_ono": "", "m_my": "", "f_my": "", "m_oni": "", "f_oney": "" },
+    "future": { "ja": "", "ty": "", "on": "", "my": "", "wy": "", "oni": "" }
+  }
+]

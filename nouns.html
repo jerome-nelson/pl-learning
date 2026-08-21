@@ -14,10 +14,36 @@
         input[type="text"], select { padding: 8px; font-family: monospace; margin-right: 10px; border: 1px solid #dcdde1; border-radius: 4px; }
         button { padding: 8px 14px; font-family: monospace; cursor: pointer; background: #ecf0f1; border: 1px solid #bdc3c7; border-radius: 4px; font-weight: bold; color: #2c3e50; }
         button:hover { background: #bdc3c7; }
-        table { width: 100%; border-collapse: collapse; background: #fff; font-size: 0.85em; margin-top: 15px; border-radius: 6px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
-        th, td { border: 1px solid #dcdde1; padding: 8px; text-align: center; }
-        th { background: #ecf0f1; color: #2c3e50; font-weight: bold; }
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
+        
+        /* Scrollable Table Container & Sticky Columns Setup */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            background: #fff;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            margin-top: 15px;
+            border: 1px solid #dcdde1;
+        }
+        table { width: max-content; border-collapse: collapse; background: #fff; font-size: 0.85em; }
+        th, td { border: 1px solid #dcdde1; padding: 8px; text-align: center; white-space: nowrap; }
+        th { background: #ecf0f1; color: #2c3e50; font-weight: bold; position: sticky; top: 0; z-index: 2; }
         tr:nth-child(even) { background: #f9fafc; }
+
+        /* Fix the first 4 columns sticky */
+        th:nth-child(1), td:nth-child(1) { position: sticky; left: 0; background: #fff; z-index: 1; border-right: 2px solid #bdc3c7; }
+        th:nth-child(1) { z-index: 3; background: #ecf0f1; }
+
+        th:nth-child(2), td:nth-child(2) { position: sticky; left: 110px; background: #fff; z-index: 1; border-right: 2px solid #bdc3c7; }
+        th:nth-child(2) { z-index: 3; background: #ecf0f1; }
+
+        th:nth-child(3), td:nth-child(3) { position: sticky; left: 200px; background: #fff; z-index: 1; border-right: 2px solid #bdc3c7; }
+        th:nth-child(3) { z-index: 3; background: #ecf0f1; }
+
+        th:nth-child(4), td:nth-child(4) { position: sticky; left: 350px; background: #fff; z-index: 1; border-right: 2px solid #bdc3c7; }
+        th:nth-child(4) { z-index: 3; background: #ecf0f1; }
+
         td[contenteditable="true"]:focus { background: #eef9ff; outline: 1px solid #2980b9; }
         .del-btn { background: #fadbd8; border: 1px solid #f5b7b1; cursor: pointer; padding: 2px 6px; color: #c0392b; border-radius: 3px; }
         .del-btn:hover { background: #f5b7b1; }
@@ -28,6 +54,50 @@
         textarea { width: 100%; height: 60px; font-family: monospace; margin-top: 5px; padding: 8px; border: 1px solid #dcdde1; border-radius: 4px; }
         .link-box { background: #fff; border: 1px solid #dcdde1; border-radius: 6px; padding: 15px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .filter-bar { margin-top: 15px; display: flex; align-items: center; gap: 10px; }
+        
+        /* Numbered Pagination Controls */
+        .pagination-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fff;
+            padding: 12px 15px;
+            border: 1px solid #dcdde1;
+            border-top: none;
+            border-bottom-left-radius: 6px;
+            border-bottom-right-radius: 6px;
+            font-size: 0.9em;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .pagination-numbers {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .page-num-btn {
+            padding: 5px 10px;
+            background: #ecf0f1;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: monospace;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .page-num-btn:hover {
+            background: #bdc3c7;
+        }
+        .page-num-btn.active {
+            background: #2980b9;
+            color: white;
+            border-color: #2980b9;
+        }
+        .page-ellipsis {
+            padding: 0 4px;
+            color: #7f8c8d;
+        }
     </style>
 </head>
 <body>
@@ -35,15 +105,16 @@
     <h1>Polish Grammar System: Rejestr Rzeczowników / Noun Registry</h1>
     <p>Interactive data compilation matrix for vocabulary, genders, grammatical endings, and declension states across places.</p>
     
-<div class="nav">
-    <strong>System Navigation:</strong> 
-    <a href="index.html">📂 Structural Templates</a> | 
-    <a href="cases.html">📊 Rejestr Przypadków / Case Registry</a> |
-    <a href="nouns.html">📝 Rejestr Rzeczowników / Noun Registry</a> |
-    <a href="verbs.html">⚡ Rejestr Czasowników / Verb Registry</a> |
-    <a href="adjectives.html">🏷️ Rejestr Przymiotników / Adjective Registry</a> |
-    <a href="drill.html">⚡ Compilation Drills</a>
-</div>
+    <div class="nav">
+        <strong>System Navigation:</strong> 
+        <a href="index.html">📂 Structural Templates</a> | 
+        <a href="cases.html">📊 Rejestr Przypadków / Case Registry</a> |
+        <a href="nouns.html">📝 Rejestr Rzeczowników / Noun Registry</a> |
+        <a href="verbs.html">⚡ Rejestr Czasowników / Verb Registry</a> |
+        <a href="adjectives.html">🏷️ Rejestr Przymiotników / Adjective Registry</a> |
+        <a href="drill.html">⚡ Compilation Drills</a>
+    </div>
+
     <div class="link-box">
         <div>
             <strong>💡 Need help identifying noun / place types?</strong> 
@@ -72,7 +143,7 @@
 
         <div class="filter-bar">
             <label for="filterSelect"><strong>Filter Registry:</strong></label>
-            <select id="filterSelect" onchange="renderTable()">
+            <select id="filterSelect" onchange="currentPage = 1; renderTable()">
                 <option value="all">Show All Entries</option>
                 <option value="regular">Regular Only</option>
                 <option value="exceptions">Exceptions Only</option>
@@ -97,34 +168,56 @@
     </div>
 
     <h3>Compiled Registry Table</h3>
-    <table id="registryTable">
-        <thead>
-            <tr>
-                <th>Base (Mianownik / Nom.)</th>
-                <th class="eng-col">English</th>
-                <th>Gender / Rodzaj</th>
-                <th>Exception</th>
-                <th>Exception Reason</th>
-                <th>Dopełniacz / Gen. Sing. (-u/-a/-y/-i)</th>
-                <th>Celownik / Dat. Sing. (-owi/-u/-e)</th>
-                <th>Biernik / Acc. Sing. (Identical/-a/-ę)</th>
-                <th>Narzędnik / Inst. Sing. (-em/-ą)</th>
-                <th>Miejscownik / Loc. Sing. (-ie/-u/-e)</th>
-                <th>Wołacz / Voc. Sing. (-e/-u/-o/-iu)</th>
-                <th>Mianownik / Nom. Plur. (-y/-i/-e/-a)</th>
-                <th>Dopełniacz / Gen. Plur. (-ów/-i/-y/Ø)</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody id="tableBody">
-            <!-- Dynamic rows injected here -->
-        </tbody>
-    </table>
+    <div class="table-container">
+        <table id="registryTable">
+            <thead>
+                <tr>
+                    <th>Base (Mianownik / Nom.)</th>
+                    <th class="eng-col">English</th>
+                    <th>Gender / Rodzaj</th>
+                    <th>Exception</th>
+                    <th>Exception Reason</th>
+                    <th>Dopełniacz / Gen. Sing. (-u/-a/-y/-i)</th>
+                    <th>Celownik / Dat. Sing. (-owi/-u/-e)</th>
+                    <th>Biernik / Acc. Sing. (Identical/-a/-ę)</th>
+                    <th>Narzędnik / Inst. Sing. (-em/-ą)</th>
+                    <th>Miejscownik / Loc. Sing. (-ie/-u/-e)</th>
+                    <th>Wołacz / Voc. Sing. (-e/-u/-o/-iu)</th>
+                    <th>Mianownik / Nom. Plur. (-y/-i/-e/-a)</th>
+                    <th>Dopełniacz / Gen. Plur. (-ów/-i/-y/Ø)</th>
+                    <th>Celownik / Dat. Plur. (-om)</th>
+                    <th>Biernik / Acc. Plur.</th>
+                    <th>Narzędnik / Inst. Plur. (-ami)</th>
+                    <th>Miejscownik / Loc. Plur. (-ach)</th>
+                    <th>Wołacz / Voc. Plur.</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- Dynamic rows injected here -->
+            </tbody>
+        </table>
+    </div>
+    <div class="pagination-bar">
+        <div style="display: flex; gap: 5px;">
+            <button id="firstBtn" onclick="goToPage(1)">&#171; First</button>
+            <button id="prevBtn" onclick="changePage(-1)">&#8249; Prev</button>
+        </div>
+        <div class="pagination-numbers" id="paginationNumbers">
+            <!-- Dynamic numbered buttons injected here -->
+        </div>
+        <div style="display: flex; gap: 5px;">
+            <button id="nextBtn" onclick="changePage(1)">Next &#8250;</button>
+            <button id="lastBtn" onclick="goToLastPage()">Last &#187;</button>
+        </div>
+    </div>
 
     <button class="clear-btn" onclick="clearRegistry()">Clear All Data</button>
 
     <script>
         let englishVisible = localStorage.getItem("englishVisible") !== "false";
+        let currentPage = 1;
+        const pageSize = 50;
 
         document.addEventListener("DOMContentLoaded", () => {
             updateToggleUI();
@@ -150,13 +243,25 @@
                 gender: gender,
                 isException: false,
                 exceptionReason: "",
-                genS: "", datS: "", accS: "", instS: "", locS: "", vocS: "", nomP: "", genP: ""
+                genS: "", datS: "", accS: "", instS: "", locS: "", vocS: "", 
+                nomP: "", genP: "", datP: "", accP: "", instP: "", locP: "", vocP: ""
             };
 
             saveToLocalStorage(rowData);
             wordInput.value = "";
             englishInput.value = "";
             genderInput.value = "";
+            
+            // Jump to the last page to see the newly added word
+            const registry = getRegistry();
+            const filterValue = document.getElementById("filterSelect").value;
+            const filteredCount = registry.filter(item => {
+                if (filterValue === "regular" && item.isException) return false;
+                if (filterValue === "exceptions" && !item.isException) return false;
+                return true;
+            }).length;
+            currentPage = Math.ceil(filteredCount / pageSize);
+            
             renderTable();
         }
 
@@ -187,7 +292,12 @@
                     locS: item.locS || "",
                     vocS: item.vocS || "",
                     nomP: item.nomP || "",
-                    genP: item.genP || ""
+                    genP: item.genP || "",
+                    datP: item.datP || "",
+                    accP: item.accP || "",
+                    instP: item.instP || "",
+                    locP: item.locP || "",
+                    vocP: item.vocP || ""
                 }));
 
                 let currentRegistry = getRegistry();
@@ -195,6 +305,7 @@
                 localStorage.setItem("polishRegistry", JSON.stringify(mergedRegistry));
                 
                 document.getElementById("importInput").value = "";
+                currentPage = 1;
                 renderTable();
                 alert(`Successfully imported ${formattedData.length} entries into localStorage!`);
             } catch (e) {
@@ -253,16 +364,30 @@
             localStorage.setItem("polishRegistry", JSON.stringify(registry));
         }
 
-        function deleteRow(index) {
+        function deleteRow(globalIndex) {
             const registry = getRegistry();
-            registry.splice(index, 1);
+            registry.splice(globalIndex, 1);
             localStorage.setItem("polishRegistry", JSON.stringify(registry));
+            
+            // Adjust page if current page becomes empty
+            const filterValue = document.getElementById("filterSelect").value;
+            const filteredCount = registry.filter(item => {
+                if (filterValue === "regular" && item.isException) return false;
+                if (filterValue === "exceptions" && !item.isException) return false;
+                return true;
+            }).length;
+            const totalPages = Math.ceil(filteredCount / pageSize) || 1;
+            if (currentPage > totalPages) {
+                currentPage = totalPages;
+            }
+
             renderTable();
         }
 
         function clearRegistry() {
             if (confirm("Are you sure you want to clear the entire registry?")) {
                 localStorage.removeItem("polishRegistry");
+                currentPage = 1;
                 renderTable();
             }
         }
@@ -279,23 +404,58 @@
             btn.innerText = englishVisible ? "Hide English" : "Show English";
         }
 
+        function changePage(direction) {
+            currentPage += direction;
+            renderTable();
+        }
+
+        function goToPage(page) {
+            currentPage = page;
+            renderTable();
+        }
+
+        function goToLastPage() {
+            const registry = getRegistry();
+            const filterValue = document.getElementById("filterSelect").value;
+            const filteredCount = registry.filter(item => {
+                if (filterValue === "regular" && item.isException) return false;
+                if (filterValue === "exceptions" && !item.isException) return false;
+                return true;
+            }).length;
+            currentPage = Math.ceil(filteredCount / pageSize) || 1;
+            renderTable();
+        }
+
         function renderTable() {
             const tbody = document.getElementById("tableBody");
             tbody.innerHTML = "";
             const registry = getRegistry();
             const filterValue = document.getElementById("filterSelect").value;
 
-            registry.forEach((item, index) => {
-                // Apply filtering logic based on selected dropdown value
+            // Filter items first
+            const filteredItems = [];
+            registry.forEach((item, originalIndex) => {
                 if (filterValue === "regular" && item.isException) return;
                 if (filterValue === "exceptions" && !item.isException) return;
+                filteredItems.push({ item, originalIndex });
+            });
 
+            const totalPages = Math.ceil(filteredItems.length / pageSize) || 1;
+            if (currentPage > totalPages) currentPage = totalPages;
+            if (currentPage < 1) currentPage = 1;
+
+            // Slice items for current page
+            const startIndex = (currentPage - 1) * pageSize;
+            const endIndex = startIndex + pageSize;
+            const pageItems = filteredItems.slice(startIndex, endIndex);
+
+            pageItems.forEach(({ item, originalIndex }) => {
                 const tr = document.createElement("tr");
                 tr.innerHTML = `
                     <td><strong>${item.base}</strong></td>
-                    <td class="eng-col ${englishVisible ? '' : 'hidden-col'}" contenteditable="true" onblur="updateField(${index}, 'english', this.innerText)">${item.english || ''}</td>
+                    <td class="eng-col ${englishVisible ? '' : 'hidden-col'}" contenteditable="true" onblur="updateField(${originalIndex}, 'english', this.innerText)">${item.english || ''}</td>
                     <td>
-                        <select onchange="updateField(${index}, 'gender', this.value)">
+                        <select onchange="updateField(${originalIndex}, 'gender', this.value)">
                             <option value="">-- Select --</option>
                             <option value="M-Inanimate" ${item.gender === 'M-Inanimate' ? 'selected' : ''}>M-Inanimate</option>
                             <option value="M-Animate" ${item.gender === 'M-Animate' ? 'selected' : ''}>M-Animate</option>
@@ -305,25 +465,80 @@
                             <option value="Niemęskoosobowy" ${item.gender === 'Niemęskoosobowy' ? 'selected' : ''}>Niemęskoosobowy</option>
                         </select>
                     </td>
-                    <td><input type="checkbox" ${item.isException ? 'checked' : ''} onchange="updateCheckbox(${index}, 'isException', this)"></td>
-                    <td contenteditable="true" onblur="updateField(${index}, 'exceptionReason', this.innerText)">${item.exceptionReason || ''}</td>
-                    <td contenteditable="true" onblur="updateField(${index}, 'genS', this.innerText)">${item.genS || ''}</td>
-                    <td contenteditable="true" onblur="updateField(${index}, 'datS', this.innerText)">${item.datS || ''}</td>
-                    <td contenteditable="true" onblur="updateField(${index}, 'accS', this.innerText)">${item.accS || ''}</td>
-                    <td contenteditable="true" onblur="updateField(${index}, 'instS', this.innerText)">${item.instS || ''}</td>
-                    <td contenteditable="true" onblur="updateField(${index}, 'locS', this.innerText)">${item.locS || ''}</td>
-                    <td contenteditable="true" onblur="updateField(${index}, 'vocS', this.innerText)">${item.vocS || ''}</td>
-                    <td contenteditable="true" onblur="updateField(${index}, 'nomP', this.innerText)">${item.nomP || ''}</td>
-                    <td contenteditable="true" onblur="updateField(${index}, 'genP', this.innerText)">${item.genP || ''}</td>
-                    <td><button class="del-btn" onclick="deleteRow(${index})">X</button></td>
+                    <td><input type="checkbox" ${item.isException ? 'checked' : ''} onchange="updateCheckbox(${originalIndex}, 'isException', this)"></td>
+                    <td contenteditable="true" onblur="updateField(${originalIndex}, 'exceptionReason', this.innerText)">${item.exceptionReason || ''}</td>
+                    <td contenteditable="true" onblur="updateField(${originalIndex}, 'genS', this.innerText)">${item.genS || ''}</td>
+                    <td contenteditable="true" onblur="updateField(${originalIndex}, 'datS', this.innerText)">${item.datS || ''}</td>
+                    <td contenteditable="true" onblur="updateField(${originalIndex}, 'accS', this.innerText)">${item.accS || ''}</td>
+                    <td contenteditable="true" onblur="updateField(${originalIndex}, 'instS', this.innerText)">${item.instS || ''}</td>
+                    <td contenteditable="true" onblur="updateField(${originalIndex}, 'locS', this.innerText)">${item.locS || ''}</td>
+                    <td contenteditable="true" onblur="updateField(${originalIndex}, 'vocS', this.innerText)">${item.vocS || ''}</td>
+                    <td contenteditable="true" onblur="updateField(${originalIndex}, 'nomP', this.innerText)">${item.nomP || ''}</td>
+                    <td contenteditable="true" onblur="updateField(${originalIndex}, 'genP', this.innerText)">${item.genP || ''}</td>
+                    <td contenteditable="true" onblur="updateField(${originalIndex}, 'datP', this.innerText)">${item.datP || ''}</td>
+                    <td contenteditable="true" onblur="updateField(${originalIndex}, 'accP', this.innerText)">${item.accP || ''}</td>
+                    <td contenteditable="true" onblur="updateField(${originalIndex}, 'instP', this.innerText)">${item.instP || ''}</td>
+                    <td contenteditable="true" onblur="updateField(${originalIndex}, 'locP', this.innerText)">${item.locP || ''}</td>
+                    <td contenteditable="true" onblur="updateField(${originalIndex}, 'vocP', this.innerText)">${item.vocP || ''}</td>
+                    <td><button class="del-btn" onclick="deleteRow(${originalIndex})">X</button></td>
                 `;
                 tbody.appendChild(tr);
             });
             
+            // Build Numbered Pagination UI
+            const numbersContainer = document.getElementById("paginationNumbers");
+            numbersContainer.innerHTML = "";
+
+            const maxVisiblePages = 5;
+            let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+            let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+            if (endPage - startPage + 1 < maxVisiblePages) {
+                startPage = Math.max(1, endPage - maxVisiblePages + 1);
+            }
+
+            if (startPage > 1) {
+                numbersContainer.appendChild(createPageButton(1));
+                if (startPage > 2) {
+                    const span = document.createElement("span");
+                    span.className = "page-ellipsis";
+                    span.innerText = "...";
+                    numbersContainer.appendChild(span);
+                }
+            }
+
+            for (let i = startPage; i <= endPage; i++) {
+                numbersContainer.appendChild(createPageButton(i));
+            }
+
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) {
+                    const span = document.createElement("span");
+                    span.className = "page-ellipsis";
+                    span.innerText = "...";
+                    numbersContainer.appendChild(span);
+                }
+                numbersContainer.appendChild(createPageButton(totalPages));
+            }
+
+            // Update button states
+            document.getElementById("firstBtn").disabled = currentPage <= 1;
+            document.getElementById("prevBtn").disabled = currentPage <= 1;
+            document.getElementById("nextBtn").disabled = currentPage >= totalPages;
+            document.getElementById("lastBtn").disabled = currentPage >= totalPages;
+
             document.querySelectorAll('.eng-col').forEach(el => {
                 if(englishVisible) el.classList.remove('hidden-col');
                 else el.classList.add('hidden-col');
             });
+        }
+
+        function createPageButton(pageNum) {
+            const btn = document.createElement("button");
+            btn.className = `page-num-btn ${pageNum === currentPage ? 'active' : ''}`;
+            btn.innerText = pageNum;
+            btn.onclick = () => goToPage(pageNum);
+            return btn;
         }
     </script>
 </body>

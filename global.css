@@ -635,13 +635,24 @@ td[contenteditable="true"]:focus {
     body {
         padding: 12px;
         font-size: 14px;
+        /* clears the fixed top nav bar */
+        padding-top: 68px;
     }
 
-    /* Hide desktop nav, show hamburger */
+    /* Fixed top bar with hamburger only */
     .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 998;
         display: flex;
         align-items: center;
-        padding: 12px 15px;
+        padding: 14px 15px;
+        margin-bottom: 0;
+        border: none;
+        border-bottom: 1px solid #dcdde1;
+        border-radius: 0;
         /* collapses the bare "|" text nodes between links */
         font-size: 0;
     }

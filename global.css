@@ -612,6 +612,7 @@ td[contenteditable="true"]:focus {
     .filter-bar {
         flex-direction: column;
         align-items: stretch;
+        width: 100%;
     }
 
     .filter-bar label {

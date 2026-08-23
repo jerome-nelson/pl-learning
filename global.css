@@ -640,33 +640,36 @@ td[contenteditable="true"]:focus {
     /* Hide desktop nav, show hamburger */
     .nav {
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        padding: 10px 15px;
+        padding: 12px 15px;
+        /* collapses the bare "|" text nodes between links */
+        font-size: 0;
     }
 
-    .nav > strong,
-    .nav > a,
-    .nav > span {
+    /* Hide every element child of nav... */
+    .nav > * {
         display: none;
     }
 
-    .nav-hamburger {
+    /* ...then bring back only the hamburger */
+    .nav > .nav-hamburger {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         width: 26px;
         height: 20px;
+        padding: 0;
+        margin: 0;
         cursor: pointer;
         background: none;
         border: none;
-        padding: 0;
-        margin: 0;
-        width: auto;
-        margin-bottom: 0;
     }
 
-    .nav-hamburger span {
+    .nav > .nav-hamburger:hover {
+        background: none;
+    }
+
+    .nav > .nav-hamburger span {
         display: block;
         width: 26px;
         height: 3px;

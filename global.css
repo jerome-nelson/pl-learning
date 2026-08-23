@@ -646,8 +646,10 @@ td[contenteditable="true"]:focus {
         font-size: 0;
     }
 
-    /* Hide every element child of nav... */
-    .nav > * {
+    /* Hide every element child of nav (a, strong, span, br...) */
+    .nav > *,
+    .nav > a,
+    .nav > strong {
         display: none;
     }
 
@@ -684,17 +686,6 @@ td[contenteditable="true"]:focus {
     h2 {
         font-size: 1.1em;
         margin-top: 25px;
-    }
-
-    .nav {
-        padding: 10px;
-        font-size: 0.85em;
-        line-height: 2;
-    }
-
-    .nav a {
-        margin: 0 3px;
-        display: inline-block;
     }
 
     .link-box {
@@ -846,10 +837,6 @@ td[contenteditable="true"]:focus {
 
     h1 {
         font-size: 1.2em;
-    }
-
-    .nav {
-        font-size: 0.8em;
     }
 
     .prompt {

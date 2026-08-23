@@ -614,14 +614,25 @@ td[contenteditable="true"]:focus {
         align-items: stretch;
     }
 
+    .filter-bar label {
+        margin-bottom: 4px;
+    }
+
     .filter-bar select {
         width: 100%;
         padding: 8px 14px;
         font-size: 0.9em;
+        font-family: monospace;
         font-weight: bold;
-        height: auto;
+        height: 38px;
+        border: 1px solid #bdc3c7;
+        border-radius: 4px;
+        background: #ecf0f1;
+        color: #2c3e50;
         -webkit-appearance: menulist;
         appearance: menulist;
+        margin-right: 0;
+        margin-bottom: 8px;
     }
 
     .data-section {

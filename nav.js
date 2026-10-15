@@ -6,6 +6,7 @@
         { href: "nouns.html",      label: "📝 Rejestr Rzeczowników / Noun Registry" },
         { href: "verbs.html",      label: "⚡ Rejestr Czasowników / Verb Registry" },
         { href: "adjectives.html", label: "🏷️ Rejestr Przymiotników / Adjective Registry" },
+        { href: "numbers.html",    label: "🔢 Liczby / Numbers" },
         { href: "drill.html",      label: "⚡ Compilation Drills" },
     ];
 
